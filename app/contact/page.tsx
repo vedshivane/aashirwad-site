@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 
+import { LocationSection } from "@/components/location-section";
 import { Reveal } from "@/components/reveal";
 import { contactPanels } from "@/lib/content";
 import { CollabSection } from "@/components/collab-section";
@@ -54,6 +55,12 @@ export default function ContactPage() {
       </section>
 
       <CollabSection />
+
+      <LocationSection
+        eyebrow="Location"
+        title="Open the store location directly from the contact page."
+        body="The interactive map makes it easier to get directions, confirm the address, and share the store location with project teams."
+      />
 
       <section className="page-band px-5 py-16 md:px-8 md:py-20 lg:px-10">
         <div className="mx-auto grid max-w-[1400px] gap-6 lg:grid-cols-3">

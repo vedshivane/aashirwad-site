@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { AboutProductSlideshow } from "@/components/about-product-slideshow";
+import { LocationSection } from "@/components/location-section";
 import { LuxuryFloat } from "@/components/luxury-float";
 import { Reveal } from "@/components/reveal";
 import { SectionHeading } from "@/components/section-heading";
@@ -72,6 +73,12 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
+
+      <LocationSection
+        eyebrow="Location"
+        title="Our Hyderabad location serves current South India operations."
+        body="The map below points directly to the store so architects, dealers, builders, and project buyers can locate the business without relying on plain address text."
+      />
 
       <section className="px-5 py-16 md:px-8 md:py-20 lg:px-10">
         <div className="mx-auto max-w-[1100px]">

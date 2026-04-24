@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 
 import { MotionProvider } from "@/components/motion-provider";
 import { SiteShell } from "@/components/site-shell";
+import { absoluteUrl, siteDescription, siteLocale, siteName, siteUrl } from "@/lib/site";
 import "./globals.css";
 
 const cabinetGrotesk = localFont({
@@ -26,15 +27,42 @@ const gambetta = localFont({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: {
-    default: "ECOAashirvad",
-    template: "%s | ECOAashirvad",
+    default: `${siteName} | Premium WPC Doors, Frames & Boards`,
+    template: `%s | ${siteName}`,
   },
-  description: "WPC doors, frames, and boards built around strength, density, and resin.",
+  description: siteDescription,
+  applicationName: siteName,
+  alternates: {
+    canonical: "/",
+  },
   icons: {
     icon: "/brand-symbol-square.png",
     shortcut: "/brand-symbol-square.png",
     apple: "/brand-symbol-square.png",
+  },
+  openGraph: {
+    type: "website",
+    url: "/",
+    siteName,
+    title: `${siteName} | Premium WPC Doors, Frames & Boards`,
+    description: siteDescription,
+    locale: siteLocale,
+    images: [
+      {
+        url: absoluteUrl("/images/home/collage.png"),
+        width: 1200,
+        height: 630,
+        alt: `${siteName} doors, frames, and boards collage`,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${siteName} | Premium WPC Doors, Frames & Boards`,
+    description: siteDescription,
+    images: [absoluteUrl("/images/home/collage.png")],
   },
 };
 

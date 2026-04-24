@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -16,12 +17,122 @@ import {
 } from "@/lib/content";
 
 import { BrandText } from "@/components/brand-text";
+import { LocationSection } from "@/components/location-section";
 
 import { parseBrandText } from "@/lib/parse-brand";
+import { contactEmail } from "@/lib/content";
+import {
+  absoluteUrl,
+  businessCoordinates,
+  businessMapUrl,
+  businessPhone,
+  heroImagePath,
+  siteAlternateNames,
+  siteDescription,
+  siteName,
+} from "@/lib/site";
+
+export const metadata: Metadata = {
+  title: "Premium WPC Doors, Frames & Boards",
+  description: siteDescription,
+  alternates: {
+    canonical: "/",
+  },
+};
 
 export default function HomePage() {
+  const homePageSchema = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Store",
+        "@id": absoluteUrl("/#organization"),
+        name: siteName,
+        alternateName: siteAlternateNames,
+        url: absoluteUrl("/"),
+        description: siteDescription,
+        email: contactEmail,
+        telephone: businessPhone,
+        address: {
+          "@type": "PostalAddress",
+          streetAddress: "14-1-334, behind prakash theatre, Aghapura, Mangalhat",
+          addressLocality: "Hyderabad",
+          addressRegion: "Telangana",
+          postalCode: "500001",
+          addressCountry: "IN",
+        },
+        geo: {
+          "@type": "GeoCoordinates",
+          latitude: businessCoordinates.latitude,
+          longitude: businessCoordinates.longitude,
+        },
+        hasMap: businessMapUrl,
+        areaServed: {
+          "@type": "Place",
+          name: "South India",
+        },
+        knowsAbout: ["WPC doors", "WPC frames", "PVC boards", "WPC boards"],
+        image: [absoluteUrl(heroImagePath), absoluteUrl("/brand-symbol.png")],
+        logo: {
+          "@type": "ImageObject",
+          url: absoluteUrl("/brand-symbol-square.png"),
+        },
+        sameAs: [businessMapUrl],
+        priceRange: "Enquiry based",
+      },
+      {
+        "@type": "WebSite",
+        "@id": absoluteUrl("/#website"),
+        url: absoluteUrl("/"),
+        name: siteName,
+        alternateName: siteAlternateNames,
+        description: siteDescription,
+        inLanguage: "en-IN",
+        publisher: {
+          "@id": absoluteUrl("/#organization"),
+        },
+      },
+      {
+        "@type": "CollectionPage",
+        "@id": absoluteUrl("/#webpage"),
+        url: absoluteUrl("/"),
+        name: `${siteName} | Premium WPC Doors, Frames & Boards`,
+        description: siteDescription,
+        inLanguage: "en-IN",
+        isPartOf: {
+          "@id": absoluteUrl("/#website"),
+        },
+        about: {
+          "@id": absoluteUrl("/#organization"),
+        },
+        primaryImageOfPage: {
+          "@type": "ImageObject",
+          url: absoluteUrl(heroImagePath),
+        },
+      },
+      {
+        "@type": "ItemList",
+        "@id": absoluteUrl("/#product-categories"),
+        name: "EcoAashirwad product categories",
+        itemListOrder: "https://schema.org/ItemListOrderAscending",
+        numberOfItems: productFamilies.length,
+        itemListElement: productFamilies.map((family, index) => ({
+          "@type": "ListItem",
+          position: index + 1,
+          url: absoluteUrl(`/products/${family.slug}`),
+          name: family.name,
+          description: family.homeSummary,
+        })),
+      },
+    ],
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(homePageSchema) }}
+      />
       <section className="hero-section px-5 pb-12 pt-8 md:px-8 md:pb-16 md:pt-10 lg:px-10">
         <div className="mx-auto max-w-[1440px]">
           <div className="hero-shell">
@@ -194,6 +305,11 @@ export default function HomePage() {
       </section>
 
       <CollabSection />
+      <LocationSection
+        eyebrow="Visit"
+        title="Visit the Hyderabad store."
+        body="Use the interactive map to locate the store, get directions, and verify the current showroom location before you visit."
+      />
 
       <section className="page-band px-5 py-16 md:px-8 md:py-20 lg:px-10">
         <div className="mx-auto max-w-[1100px]">
