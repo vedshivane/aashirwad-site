@@ -1,0 +1,2022 @@
+@import "tailwindcss";
+
+:root {
+  --surface-ground: oklch(0.975 0.012 55);
+  --surface-panel: oklch(0.985 0.008 50);
+  --surface-panel-strong: oklch(0.94 0.02 48);
+  --surface-band: oklch(0.952 0.018 52);
+  --surface-depth: oklch(0.93 0.022 44);
+  --surface-warm: oklch(0.965 0.022 62);
+  --surface-cream: oklch(0.988 0.014 72);
+  --accent-red: oklch(0.54 0.17 28);
+  --accent-red-deep: oklch(0.41 0.12 27);
+  --accent-clay: oklch(0.73 0.08 48);
+  --accent-sandal: oklch(0.83 0.06 67);
+  --accent-umber: oklch(0.64 0.065 42);
+  --ink-strong: oklch(0.28 0.03 36);
+  --ink-primary: oklch(0.34 0.028 37);
+  --ink-muted: oklch(0.35 0.022 38);
+  --ink-subtle: oklch(0.48 0.018 41);
+  --line-soft: color-mix(in oklab, var(--accent-red) 12%, white);
+  --line-strong: color-mix(in oklab, var(--accent-red) 18%, var(--surface-panel));
+  --shadow-soft: 0 24px 80px -42px color-mix(in oklab, var(--accent-red) 28%, transparent);
+  --shadow-panel: 0 25px 70px -38px color-mix(in oklab, var(--ink-primary) 22%, transparent);
+  --radius-lg: 2rem;
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+@theme inline {
+  --font-sans: var(--font-cabinet-grotesk);
+  --font-display: var(--font-gambetta);
+  --color-background: var(--surface-ground);
+  --color-foreground: var(--ink-primary);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100dvh;
+  background:
+    radial-gradient(circle at 12% 10%, color-mix(in oklab, var(--accent-sandal) 34%, transparent) 0%, transparent 28%),
+    radial-gradient(circle at 88% 12%, color-mix(in oklab, var(--accent-clay) 18%, transparent) 0%, transparent 24%),
+    radial-gradient(circle at 50% 130%, color-mix(in oklab, var(--accent-umber) 14%, transparent) 0%, transparent 42%),
+    linear-gradient(135deg, rgba(255,255,255,0.72) 0%, rgba(255,255,255,0) 30%),
+    linear-gradient(180deg, var(--surface-cream) 0%, var(--surface-ground) 32%, color-mix(in oklab, var(--surface-depth) 70%, white) 100%);
+  color: var(--ink-primary);
+  font-family: var(--font-cabinet-grotesk), sans-serif;
+  text-rendering: optimizeLegibility;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.62;
+  background:
+    radial-gradient(circle at 16% 18%, rgba(255,255,255,0.86) 0, rgba(255,255,255,0.18) 18%, transparent 34%),
+    radial-gradient(circle at 82% 22%, color-mix(in oklab, var(--accent-sandal) 16%, white) 0, transparent 26%),
+    radial-gradient(circle at 50% 72%, color-mix(in oklab, var(--accent-umber) 11%, transparent) 0, transparent 34%),
+    linear-gradient(180deg, rgba(255,255,255,0.38), rgba(255,255,255,0) 26%),
+    conic-gradient(
+      from 176deg at 14% 24%,
+      color-mix(in oklab, var(--accent-red) 4%, transparent) 0deg 18deg,
+      transparent 18deg 36deg,
+      color-mix(in oklab, var(--accent-clay) 4%, transparent) 36deg 52deg,
+      transparent 50deg 360deg
+    ),
+    conic-gradient(
+      from 26deg at 84% 70%,
+      color-mix(in oklab, var(--accent-clay) 5%, transparent) 0deg 16deg,
+      transparent 16deg 34deg,
+      color-mix(in oklab, var(--accent-red) 4%, transparent) 34deg 50deg,
+      transparent 50deg 360deg
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(120, 79, 55, 0.045) 0,
+      rgba(120, 79, 55, 0.045) 1px,
+      transparent 1px,
+      transparent 88px
+    ),
+    repeating-linear-gradient(
+      0deg,
+      rgba(120, 79, 55, 0.035) 0,
+      rgba(120, 79, 55, 0.035) 1px,
+      transparent 1px,
+      transparent 88px
+    );
+  background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 88px 88px, 88px 88px;
+  z-index: -2;
+  animation: ambient-drift 32s ease-in-out infinite alternate;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  opacity: 0.42;
+  background:
+    radial-gradient(circle at 20% 18%, rgba(255,255,255,0.7), transparent 24%),
+    radial-gradient(circle at 78% 78%, rgba(255,255,255,0.42), transparent 22%),
+    linear-gradient(115deg, rgba(255,255,255,0.08), transparent 34%, rgba(120,79,55,0.04) 66%, transparent 100%),
+    repeating-linear-gradient(
+      12deg,
+      rgba(95, 63, 46, 0.03) 0,
+      rgba(95, 63, 46, 0.03) 2px,
+      transparent 2px,
+      transparent 26px
+    );
+  mix-blend-mode: soft-light;
+  mask-image: radial-gradient(circle at 50% 50%, black, transparent 92%);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+a,
+input,
+textarea,
+select {
+  transition:
+    transform 180ms var(--ease-out-expo),
+    background-color 220ms var(--ease-out-quart),
+    border-color 220ms var(--ease-out-quart),
+    color 220ms var(--ease-out-quart),
+    opacity 220ms var(--ease-out-quart);
+}
+
+a:active,
+button:active {
+  transform: scale(0.98);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent-red);
+  outline-offset: 4px;
+}
+
+::selection {
+  background: color-mix(in oklab, var(--accent-red) 24%, white);
+  color: var(--ink-strong);
+}
+
+.site-glow {
+  position: fixed;
+  top: -12rem;
+  height: 24rem;
+  width: 24rem;
+  border-radius: 999px;
+  filter: blur(95px);
+  opacity: 0.12;
+  pointer-events: none;
+  z-index: -1;
+  animation: halo-drift 18s ease-in-out infinite alternate;
+}
+
+.site-glow-left {
+  left: -8rem;
+  background: color-mix(in oklab, var(--accent-red) 24%, transparent);
+}
+
+.site-glow-right {
+  right: -10rem;
+  background: color-mix(in oklab, var(--accent-clay) 36%, transparent);
+}
+
+.site-ambient-stage {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.site-ambient-stage::before,
+.site-ambient-stage::after {
+  content: "";
+  position: absolute;
+  border-radius: 999px;
+  filter: blur(24px);
+  opacity: 0.7;
+}
+
+.site-ambient-stage::before {
+  left: -12rem;
+  top: 12rem;
+  width: min(42vw, 34rem);
+  height: min(42vw, 34rem);
+  background:
+    radial-gradient(circle, color-mix(in oklab, var(--accent-sandal) 28%, white) 0%, transparent 70%);
+}
+
+.site-ambient-stage::after {
+  right: -10rem;
+  top: 34rem;
+  width: min(34vw, 26rem);
+  height: min(34vw, 26rem);
+  background:
+    radial-gradient(circle, color-mix(in oklab, var(--accent-clay) 26%, transparent) 0%, transparent 72%);
+}
+
+.site-graphic {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  opacity: 0.44;
+}
+
+.site-graphic-lines {
+  background:
+    linear-gradient(118deg, transparent 0 12%, rgba(161, 74, 56, 0.075) 12% 12.18%, transparent 12.18% 22%, rgba(161, 74, 56, 0.055) 22% 22.16%, transparent 22.16% 100%),
+    linear-gradient(118deg, transparent 0 48%, rgba(161, 74, 56, 0.06) 48% 48.14%, transparent 48.14% 58%, rgba(161, 74, 56, 0.05) 58% 58.16%, transparent 58.16% 100%),
+    linear-gradient(118deg, transparent 0 72%, rgba(161, 74, 56, 0.07) 72% 72.2%, transparent 72.2% 82%, rgba(161, 74, 56, 0.045) 82% 82.14%, transparent 82.14% 100%);
+  mask-image: linear-gradient(180deg, rgba(0,0,0,0.92), rgba(0,0,0,0.55));
+}
+
+.site-graphic-circles::before,
+.site-graphic-circles::after,
+.site-graphic-keys::before,
+.site-graphic-keys::after {
+  content: "";
+  position: absolute;
+}
+
+.site-graphic-circles::before {
+  left: -6rem;
+  top: 28rem;
+  width: 34rem;
+  height: 34rem;
+  border-radius: 999px;
+  border: 1px solid rgba(161, 74, 56, 0.1);
+  box-shadow:
+    0 0 0 2.4rem rgba(161, 74, 56, 0.03),
+    0 0 0 6.2rem rgba(161, 74, 56, 0.022),
+    0 0 0 10.4rem rgba(161, 74, 56, 0.016);
+}
+
+.site-graphic-circles::after {
+  right: -10rem;
+  top: 8rem;
+  width: 26rem;
+  height: 26rem;
+  border-radius: 999px;
+  border: 1px solid rgba(161, 74, 56, 0.09);
+  box-shadow:
+    0 0 0 2rem rgba(161, 74, 56, 0.028),
+    0 0 0 5.1rem rgba(161, 74, 56, 0.02);
+}
+
+.site-graphic-keys::before {
+  left: 3.5rem;
+  top: 6.5rem;
+  width: 10rem;
+  height: 10rem;
+  opacity: 0.32;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cpath d='M12 24h56v28H40v24h44V8H12zm72 0h56v56h-28V52H88v44h68V24H84zm-72 72h56v56H12v-28h28v-24H12zm100 0h44v56H84v-68h28z' fill='none' stroke='%239b4b38' stroke-opacity='0.22' stroke-width='4'/%3E%3C/svg%3E")
+      center/contain no-repeat;
+}
+
+.site-graphic-keys::after {
+  right: 4rem;
+  bottom: 8rem;
+  width: 11rem;
+  height: 11rem;
+  opacity: 0.26;
+  transform: rotate(90deg);
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cpath d='M12 24h56v28H40v24h44V8H12zm72 0h56v56h-28V52H88v44h68V24H84zm-72 72h56v56H12v-28h28v-24H12zm100 0h44v56H84v-68h28z' fill='none' stroke='%239b4b38' stroke-opacity='0.2' stroke-width='4'/%3E%3C/svg%3E")
+      center/contain no-repeat;
+}
+
+.site-header-panel {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem 1.25rem;
+  border: 1px solid var(--line-soft);
+  border-radius: 1.35rem;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.84), rgba(255,255,255,0.56)),
+    color-mix(in oklab, var(--surface-ground) 84%, white);
+  padding: 0.58rem 0.92rem;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.86),
+    0 18px 48px -34px color-mix(in oklab, var(--accent-red) 22%, transparent);
+  backdrop-filter: blur(14px);
+}
+
+.site-header-nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.site-nav-link {
+  padding: 0.62rem 0.84rem;
+}
+
+.site-nav-link-active {
+  color: var(--ink-strong);
+  font-weight: 600;
+}
+
+.site-nav-link-active::after {
+  transform: scaleX(1);
+  background: color-mix(in oklab, var(--accent-red) 88%, transparent);
+}
+
+.site-nav-link + .site-nav-link {
+  position: relative;
+}
+
+.site-nav-link + .site-nav-link::before {
+  content: "";
+  position: absolute;
+  left: -0.15rem;
+  top: 50%;
+  width: 1px;
+  height: 0.95rem;
+  transform: translateY(-50%);
+  background: color-mix(in oklab, var(--accent-red) 14%, white);
+}
+
+.brand-lockup {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.62rem;
+  line-height: 1;
+  color: var(--accent-red-deep);
+}
+
+.brand-lockup-mark {
+  display: block;
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 10px 20px rgba(157, 40, 27, 0.08));
+}
+
+.brand-lockup-mark-compact {
+  width: clamp(1.65rem, 3.2vw, 2.15rem);
+}
+
+.brand-lockup-mark-social {
+  width: clamp(3.4rem, 8vw, 4.6rem);
+}
+
+.brand-lockup-mark-symbol {
+  width: clamp(2.25rem, 4.8vw, 3rem);
+}
+
+.brand-lockup-wording {
+  display: flex;
+  align-items: baseline;
+  gap: 0;
+}
+
+.brand-lockup-wording-social {
+  gap: 0;
+}
+
+.brand-lockup-eco {
+  font-size: 0.72rem;
+  font-weight: 500;
+  margin-right: 0.05em;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.brand-eco-text {
+  font-size: 0.65em;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  vertical-align: baseline;
+}
+
+.brand-lockup-name {
+  font-family: var(--font-gambetta), serif;
+  font-size: clamp(1.42rem, 2.6vw, 2.2rem);
+  line-height: 0.92;
+  letter-spacing: -0.05em;
+}
+
+.brand-lockup-social .brand-lockup-name {
+  font-size: clamp(2.3rem, 5vw, 3.8rem);
+}
+
+.site-header-brand .brand-lockup-name {
+  font-size: clamp(1.14rem, 1.85vw, 1.42rem);
+}
+
+.site-header-brand .brand-lockup-eco {
+  font-size: 0.64rem;
+  letter-spacing: 0.08em;
+}
+
+.nav-link,
+.footer-link {
+  position: relative;
+  padding-bottom: 0.15rem;
+}
+
+.nav-link::after,
+.footer-link::after,
+.text-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -0.05rem;
+  height: 1px;
+  width: 100%;
+  transform: scaleX(0.36);
+  transform-origin: left;
+  background: color-mix(in oklab, var(--accent-red) 62%, transparent);
+  transition: transform 240ms var(--ease-out-expo);
+}
+
+.nav-link:hover,
+.footer-link:hover,
+.text-link:hover {
+  color: var(--ink-strong);
+}
+
+.nav-link:hover::after,
+.footer-link:hover::after,
+.text-link:hover::after {
+  transform: scaleX(1);
+}
+
+.display-title {
+  max-width: 11ch;
+  font-family: var(--font-gambetta), serif;
+  font-size: clamp(2.9rem, 5.1vw, 5.1rem);
+  line-height: 0.94;
+  letter-spacing: -0.07em;
+  color: var(--ink-strong);
+}
+
+.section-title {
+  font-family: var(--font-gambetta), serif;
+  font-size: clamp(2.35rem, 5vw, 4.25rem);
+  line-height: 0.98;
+  letter-spacing: -0.06em;
+  color: var(--ink-strong);
+}
+
+.hero-copy {
+  max-width: 36rem;
+  font-size: clamp(1.12rem, 2.1vw, 1.36rem);
+  line-height: 1.86;
+  color: var(--ink-muted);
+  text-wrap: pretty;
+}
+
+.hero-title {
+  max-width: 8.4ch;
+  font-size: clamp(3.2rem, 6vw, 6rem);
+}
+
+.hero-copy-wide {
+  max-width: 39rem;
+}
+
+.body-copy {
+  max-width: 72ch;
+  font-size: 1.05rem;
+  line-height: 1.92;
+}
+
+.eyebrow {
+  font-size: 0.84rem;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--accent-red-deep);
+}
+
+.button-primary,
+.button-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  border-radius: 1rem;
+  padding: 0.96rem 1.35rem;
+  font-size: 0.96rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.button-primary {
+  border: 1px solid color-mix(in oklab, var(--accent-red) 72%, white);
+  background: linear-gradient(
+    180deg,
+    color-mix(in oklab, var(--accent-red) 92%, white) 0%,
+    var(--accent-red) 100%
+  );
+  color: color-mix(in oklab, white 90%, var(--accent-sandal));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    0 18px 42px -24px color-mix(in oklab, var(--accent-red) 72%, transparent);
+}
+
+.button-primary:hover {
+  transform: translateY(-1px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.28),
+    0 22px 48px -26px color-mix(in oklab, var(--accent-red) 76%, transparent);
+}
+
+.button-secondary {
+  border: 1px solid var(--line-strong);
+  background: color-mix(in oklab, var(--surface-panel) 85%, white);
+  color: var(--ink-strong);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.82),
+    var(--shadow-soft);
+}
+
+.button-secondary:hover {
+  transform: translateY(-1px);
+  border-color: color-mix(in oklab, var(--accent-red) 22%, white);
+}
+
+.text-link {
+  position: relative;
+  display: inline-flex;
+  width: fit-content;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--accent-red-deep);
+}
+
+.proof-chip,
+.surface-panel,
+.feature-panel,
+.spec-panel,
+.callout-panel {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--line-soft);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.76), rgba(255, 255, 255, 0.42)),
+    var(--surface-panel);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.85),
+    var(--shadow-panel);
+}
+
+.proof-chip {
+  border-radius: 1.15rem;
+  padding: 1.25rem 1.15rem;
+  transform-origin: center bottom;
+}
+
+.proof-chip:hover {
+  transform: translateY(-4px);
+}
+
+.proof-chip dt {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.26em;
+  color: var(--ink-subtle);
+}
+
+.proof-chip dd {
+  margin-top: 0.65rem;
+  font-family: var(--font-gambetta), serif;
+  font-size: 1.25rem;
+  line-height: 1.2;
+  letter-spacing: -0.04em;
+  color: var(--ink-strong);
+}
+
+.surface-panel,
+.callout-panel {
+  border-radius: 1.6rem;
+  padding: clamp(1.5rem, 4vw, 2.4rem);
+}
+
+.feature-panel {
+  border-radius: 1.3rem;
+  padding: 1.5rem;
+}
+
+.feature-icon-wrap {
+  width: fit-content;
+  border-radius: 1.2rem;
+  border: 1px solid var(--line-soft);
+  background: rgba(255, 255, 255, 0.55);
+  padding: 0.9rem;
+}
+
+.manifesto-panel {
+  border-top: 1px solid var(--line-strong);
+  padding-top: 1.2rem;
+  position: relative;
+}
+
+.manifesto-panel::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 0.7rem;
+  width: clamp(7rem, 20vw, 13rem);
+  height: 1px;
+  background: linear-gradient(90deg, transparent, color-mix(in oklab, var(--accent-red) 24%, white), transparent);
+}
+
+.manifesto-title {
+  max-width: 14ch;
+  font-family: var(--font-gambetta), serif;
+  font-size: clamp(2.8rem, 5vw, 4.8rem);
+  line-height: 0.96;
+  letter-spacing: -0.06em;
+  color: var(--ink-strong);
+}
+
+.manifesto-copy {
+  max-width: 40rem;
+  font-size: 1.06rem;
+  line-height: 1.9;
+  color: var(--ink-muted);
+}
+
+.manifesto-note {
+  border-left: 1px solid var(--line-soft);
+  padding-left: 1.4rem;
+}
+
+.feature-rail {
+  display: grid;
+  gap: 1.25rem;
+  border-top: 1px solid var(--line-soft);
+  padding-top: 1.4rem;
+}
+
+.feature-rail-index {
+  font-family: var(--font-gambetta), serif;
+  font-size: clamp(2rem, 3.2vw, 3rem);
+  line-height: 0.92;
+  letter-spacing: -0.07em;
+  color: color-mix(in oklab, var(--accent-red) 40%, white);
+}
+
+.feature-rail-icon {
+  width: fit-content;
+  border-radius: 1.4rem;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.35)),
+    color-mix(in oklab, var(--accent-sandal) 24%, white);
+  padding: 0.95rem;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.92);
+}
+
+.feature-proof {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent-red-deep);
+}
+
+.page-band {
+  background:
+    radial-gradient(circle at 12% 20%, rgba(255,255,255,0.7), rgba(255,255,255,0) 22%),
+    radial-gradient(circle at 86% 14%, color-mix(in oklab, var(--accent-sandal) 10%, transparent) 0%, transparent 24%),
+    repeating-linear-gradient(
+      90deg,
+      transparent 0,
+      transparent 7rem,
+      color-mix(in oklab, var(--accent-red) 3.5%, transparent) 7rem,
+      color-mix(in oklab, var(--accent-red) 3.5%, transparent) 7.05rem
+    ),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.54), rgba(255, 255, 255, 0.08)),
+    linear-gradient(180deg, color-mix(in oklab, var(--surface-band) 88%, white), color-mix(in oklab, var(--surface-depth) 52%, white));
+  position: relative;
+}
+
+.page-band::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, transparent, rgba(255,255,255,0.24) 18%, transparent 38%),
+    linear-gradient(90deg, transparent 58%, rgba(120,79,55,0.04) 74%, transparent 100%);
+  opacity: 0.7;
+}
+
+.hero-section {
+  position: relative;
+}
+
+.hero-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 74% 28%, color-mix(in oklab, var(--accent-red) 12%, transparent) 0%, transparent 24%),
+    radial-gradient(circle at 24% 10%, color-mix(in oklab, var(--accent-sandal) 20%, transparent) 0%, transparent 22%),
+    linear-gradient(110deg, rgba(255,255,255,0.22) 0%, transparent 42%);
+  opacity: 0.88;
+}
+
+.hero-shell {
+  display: grid;
+  gap: clamp(2.2rem, 4vw, 4.4rem);
+  align-items: center;
+}
+
+.product-hero-shell,
+.contact-hero-shell {
+  display: grid;
+  gap: clamp(2.2rem, 4vw, 4.2rem);
+  align-items: center;
+}
+
+.hero-copy-column {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+.product-hero-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+.hero-kicker-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.85rem;
+  margin-bottom: 0.35rem;
+}
+
+.hero-brand-chip,
+.hero-kicker-copy {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+
+.hero-brand-chip {
+  border-radius: 999px;
+  border: 1px solid color-mix(in oklab, var(--accent-red) 24%, white);
+  background: color-mix(in oklab, var(--surface-panel) 88%, white);
+  padding: 0.6rem 0.9rem;
+  color: var(--accent-red-deep);
+}
+
+.hero-kicker-copy {
+  color: var(--ink-subtle);
+}
+
+.hero-kicker-divider {
+  width: 3rem;
+  height: 1px;
+  background: linear-gradient(90deg, color-mix(in oklab, var(--accent-red) 24%, white), transparent);
+}
+
+.hero-proof-ledger {
+  display: grid;
+  gap: 1px;
+  overflow: hidden;
+  border: 1px solid var(--line-soft);
+  border-radius: 1.6rem;
+  background: color-mix(in oklab, var(--accent-red) 10%, white);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    var(--shadow-panel);
+}
+
+.hero-proof-item {
+  padding: 1.2rem 1.3rem 1.15rem;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.82), rgba(255, 255, 255, 0.46)),
+    var(--surface-panel);
+}
+
+.product-ledger {
+  display: grid;
+  gap: 1px;
+  overflow: hidden;
+  margin-top: 3.5rem;
+  border: 1px solid var(--line-soft);
+  border-radius: 1.6rem;
+  background: color-mix(in oklab, var(--accent-red) 10%, white);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    var(--shadow-panel);
+}
+
+.product-ledger-item {
+  padding: 1.15rem 1.25rem 1.1rem;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.84), rgba(255,255,255,0.5)),
+    var(--surface-panel);
+}
+
+.product-ledger-item span {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-subtle);
+}
+
+.product-ledger-item strong {
+  display: block;
+  margin-top: 0.5rem;
+  font-family: var(--font-gambetta), serif;
+  font-size: 1.16rem;
+  line-height: 1.3;
+  font-weight: 500;
+  letter-spacing: -0.04em;
+  color: var(--ink-strong);
+}
+
+.hero-proof-item span {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-subtle);
+}
+
+.hero-proof-item strong {
+  display: block;
+  margin-top: 0.55rem;
+  font-family: var(--font-gambetta), serif;
+  font-size: 1.24rem;
+  line-height: 1.22;
+  font-weight: 500;
+  letter-spacing: -0.04em;
+  color: var(--ink-strong);
+}
+
+.hero-stage-shell {
+  position: relative;
+  overflow: hidden;
+  min-height: clamp(29rem, 52vw, 42rem);
+  border: 1px solid var(--line-soft);
+  border-radius: clamp(2rem, 4vw, 3rem);
+  background:
+    repeating-linear-gradient(
+      120deg,
+      transparent 0,
+      transparent 3.4rem,
+      color-mix(in oklab, var(--accent-red) 4%, transparent) 3.4rem,
+      color-mix(in oklab, var(--accent-red) 4%, transparent) 3.7rem
+    ),
+    radial-gradient(circle at 50% 10%, rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0) 28%),
+    linear-gradient(180deg, color-mix(in oklab, var(--accent-sandal) 18%, white), color-mix(in oklab, var(--surface-panel) 76%, white));
+  padding: clamp(1.8rem, 4vw, 2.8rem);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.84),
+    0 42px 110px -52px color-mix(in oklab, var(--accent-red) 34%, transparent);
+}
+
+.product-hero-stage {
+  position: relative;
+  overflow: hidden;
+  min-height: clamp(28rem, 48vw, 40rem);
+  border-radius: clamp(2rem, 4vw, 2.8rem);
+  border: 1px solid var(--line-soft);
+  background:
+    repeating-linear-gradient(
+      120deg,
+      transparent 0,
+      transparent 3.4rem,
+      color-mix(in oklab, var(--accent-red) 4%, transparent) 3.4rem,
+      color-mix(in oklab, var(--accent-red) 4%, transparent) 3.7rem
+    ),
+    radial-gradient(circle at 50% 12%, rgba(255,255,255,0.94), rgba(255,255,255,0) 30%),
+    linear-gradient(180deg, color-mix(in oklab, var(--accent-sandal) 16%, white), color-mix(in oklab, var(--surface-panel) 76%, white));
+  padding: clamp(1.8rem, 4vw, 2.7rem);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.88),
+    0 42px 104px -50px color-mix(in oklab, var(--accent-red) 26%, transparent);
+}
+
+.product-hero-stage::before {
+  content: "";
+  position: absolute;
+  inset: 1.1rem;
+  border-radius: inherit;
+  border: 1px solid color-mix(in oklab, var(--accent-red) 10%, white);
+  pointer-events: none;
+}
+
+.product-hero-art {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: clamp(22rem, 40vw, 32rem);
+  animation: art-float 8.8s ease-in-out infinite;
+}
+
+.product-page-title {
+  max-width: 12ch;
+  font-size: clamp(3rem, 5.6vw, 5.6rem);
+}
+
+.product-tone-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.product-hero-list {
+  display: grid;
+  gap: 1rem;
+  max-width: 46rem;
+  font-size: 0.98rem;
+  line-height: 1.8;
+  color: var(--ink-muted);
+}
+
+.product-hero-caption {
+  position: absolute;
+  left: 1.2rem;
+  right: 1.2rem;
+  bottom: 1rem;
+  margin-top: 0;
+  border-radius: 1rem;
+  background: rgba(255,255,255,0.62);
+  padding: 0.95rem 1rem 0.9rem;
+  backdrop-filter: blur(10px);
+}
+
+.hero-stage-shell::before {
+  content: "";
+  position: absolute;
+  inset: 1.15rem;
+  border-radius: inherit;
+  border: 1px solid color-mix(in oklab, var(--accent-red) 10%, white);
+  pointer-events: none;
+}
+
+.hero-stage-shell-home::before {
+  display: none;
+}
+
+.hero-stage-shell-home .hero-stage-art {
+  justify-content: flex-end;
+}
+
+.hero-stage-shell-home .hero-collage-shell {
+  width: min(100%, 38rem);
+  margin-left: auto;
+}
+
+.hero-stage-art {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  min-height: clamp(22rem, 44vw, 34rem);
+  animation: art-float 8.8s ease-in-out infinite;
+}
+
+.hero-collage-shell {
+  position: relative;
+  width: min(100%, 40rem);
+}
+
+.hero-collage-card {
+  position: relative;
+  z-index: 1;
+  aspect-ratio: 3 / 2;
+  overflow: visible;
+  background: transparent;
+  box-shadow: 0 24px 54px -34px rgba(77, 43, 35, 0.28);
+}
+
+.hero-collage-image {
+  object-fit: contain;
+  object-position: center;
+}
+
+.hero-light-beam {
+  position: absolute;
+  top: -8%;
+  width: 38%;
+  height: 126%;
+  opacity: 0.45;
+  filter: blur(10px);
+  background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,255,255,0));
+  animation: beam-drift 11s ease-in-out infinite alternate;
+}
+
+.hero-light-beam-left {
+  left: 10%;
+  transform: rotate(15deg);
+}
+
+.hero-light-beam-right {
+  right: 9%;
+  transform: rotate(-14deg);
+  animation-duration: 13s;
+}
+
+.hero-stage-caption,
+.product-stage-tag {
+  position: absolute;
+  z-index: 3;
+  max-width: 13rem;
+  border-radius: 1rem;
+  border: 1px solid var(--line-soft);
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(14px);
+  box-shadow: var(--shadow-soft);
+}
+
+.hero-stage-caption {
+  right: 1.55rem;
+  top: 1.55rem;
+  padding: 0.95rem 1rem;
+}
+
+.hero-stage-caption span,
+.product-stage-tag {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent-red-deep);
+}
+
+.hero-stage-caption p {
+  margin-top: 0.55rem;
+  font-size: 0.86rem;
+  line-height: 1.62;
+  color: var(--ink-muted);
+}
+
+.ticker-band {
+  overflow: hidden;
+  border-top: 1px solid var(--line-soft);
+  border-bottom: 1px solid var(--line-soft);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.64), rgba(255, 255, 255, 0.34)),
+    color-mix(in oklab, var(--surface-panel) 88%, white);
+}
+
+.ticker-window {
+  overflow: hidden;
+}
+
+.ticker-track {
+  display: flex;
+  width: max-content;
+  gap: 0.9rem;
+  padding: 0.95rem 0;
+}
+
+.ticker-item {
+  position: relative;
+  white-space: nowrap;
+  padding-right: 1.25rem;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--ink-subtle);
+}
+
+.ticker-item::after {
+  content: "";
+  position: absolute;
+  right: 0.2rem;
+  top: 50%;
+  width: 0.35rem;
+  height: 0.35rem;
+  border-radius: 999px;
+  transform: translateY(-50%);
+  background: color-mix(in oklab, var(--accent-red) 52%, white);
+}
+
+.story-grid,
+.essentials-layout {
+  display: grid;
+}
+
+.story-panel {
+  position: relative;
+  overflow: hidden;
+  border-radius: clamp(2rem, 4vw, 2.8rem);
+  border: 1px solid var(--line-soft);
+  background:
+    radial-gradient(circle at 80% 18%, rgba(255,255,255,0.78), rgba(255,255,255,0) 28%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.74), rgba(255,255,255,0.42)),
+    color-mix(in oklab, var(--surface-panel) 94%, white);
+  padding: clamp(1.8rem, 4vw, 2.6rem);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.88),
+    var(--shadow-panel);
+}
+
+.about-value-panel {
+  min-height: 100%;
+}
+
+.story-panel::after {
+  content: "";
+  position: absolute;
+  right: -12%;
+  top: -10%;
+  width: 16rem;
+  height: 16rem;
+  border-radius: 999px;
+  border: 1px solid color-mix(in oklab, var(--accent-red) 10%, white);
+  opacity: 0.75;
+}
+
+.story-note {
+  position: relative;
+  padding-top: 1.45rem;
+  padding-left: 1.1rem;
+  border-top: 1px solid var(--line-soft);
+}
+
+.story-note::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 1.45rem;
+  bottom: 0.15rem;
+  width: 1px;
+  background: linear-gradient(180deg, color-mix(in oklab, var(--accent-red) 24%, white), transparent);
+}
+
+.essentials-intro {
+  max-width: 42rem;
+}
+
+.feature-matrix {
+  display: grid;
+  gap: 1.2rem;
+}
+
+.feature-slab {
+  position: relative;
+  display: grid;
+  gap: 1.1rem;
+  overflow: hidden;
+  border-radius: 1.55rem;
+  border: 1px solid var(--line-soft);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.8), rgba(255,255,255,0.44)),
+    color-mix(in oklab, var(--surface-panel) 92%, white);
+  padding: 1.35rem 1.35rem 1.3rem;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.88),
+    var(--shadow-soft);
+  transition:
+    transform 360ms var(--ease-out-expo),
+    box-shadow 360ms var(--ease-out-expo),
+    border-color 260ms var(--ease-out-quart);
+}
+
+.feature-slab:hover {
+  transform: translateY(-5px);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.92),
+    0 30px 70px -42px color-mix(in oklab, var(--accent-red) 24%, transparent);
+}
+
+.feature-slab-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.feature-slab-icon {
+  display: grid;
+  place-items: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 1.05rem;
+  border: 1px solid color-mix(in oklab, var(--accent-red) 12%, white);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.8), rgba(255,255,255,0.36)),
+    color-mix(in oklab, var(--accent-sandal) 18%, white);
+  color: var(--accent-red-deep);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.9);
+}
+
+.feature-slab-index {
+  font-family: var(--font-gambetta), serif;
+  font-size: 2rem;
+  line-height: 0.92;
+  letter-spacing: -0.06em;
+  color: color-mix(in oklab, var(--accent-red) 34%, white);
+}
+
+.range-header {
+  max-width: 54rem;
+}
+
+.tone-pill {
+  border-radius: 999px;
+  border: 1px solid var(--line-soft);
+  background: rgba(255,255,255,0.56);
+  padding: 0.55rem 0.85rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-subtle);
+}
+
+.product-spec-panel,
+.product-finish-panel,
+.product-application-panel,
+.product-inquiry-panel,
+.contact-panel,
+.contact-board {
+  overflow: hidden;
+}
+
+.finish-monolith {
+  display: grid;
+  gap: 0.9rem;
+  border-radius: 1.35rem;
+  border: 1px solid var(--line-soft);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.72), rgba(255,255,255,0.4)),
+    color-mix(in oklab, var(--surface-ground) 88%, white);
+  padding: 0.9rem;
+}
+
+.finish-monolith-fill {
+  min-height: 10rem;
+  border-radius: 1rem;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.2);
+}
+
+.application-rail {
+  display: grid;
+  gap: 0.5rem;
+  border-top: 1px solid var(--line-soft);
+  padding-top: 1.2rem;
+}
+
+.contact-board {
+  position: relative;
+  border-radius: clamp(1.9rem, 4vw, 2.5rem);
+  border: 1px solid var(--line-soft);
+  background:
+    radial-gradient(circle at 82% 16%, rgba(255,255,255,0.8), rgba(255,255,255,0) 24%),
+    linear-gradient(180deg, rgba(255,255,255,0.72), rgba(255,255,255,0.42)),
+    color-mix(in oklab, var(--surface-panel) 92%, white);
+  padding: clamp(1.5rem, 4vw, 2.3rem);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.88),
+    var(--shadow-panel);
+}
+
+.contact-board::after {
+  content: "";
+  position: absolute;
+  right: -8%;
+  top: -10%;
+  width: 14rem;
+  height: 14rem;
+  border-radius: 999px;
+  border: 1px solid color-mix(in oklab, var(--accent-red) 12%, white);
+}
+
+.contact-checklist {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1.25rem;
+}
+
+.contact-check-item {
+  display: grid;
+  gap: 0.22rem;
+  border-top: 1px solid var(--line-soft);
+  padding-top: 1rem;
+}
+
+.contact-check-item span {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--accent-red-deep);
+}
+
+.contact-check-item strong {
+  font-family: var(--font-gambetta), serif;
+  font-size: 1.32rem;
+  line-height: 1.2;
+  font-weight: 500;
+  letter-spacing: -0.04em;
+  color: var(--ink-strong);
+}
+
+.contact-check-item p {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--ink-muted);
+}
+
+.hero-illustration-shell {
+  position: relative;
+  overflow: hidden;
+  border-radius: clamp(1.8rem, 4vw, 2.8rem);
+  border: 1px solid var(--line-soft);
+  background:
+    radial-gradient(circle at 50% 22%, rgba(255, 255, 255, 0.94), rgba(255, 255, 255, 0) 42%),
+    linear-gradient(180deg, color-mix(in oklab, var(--accent-sandal) 16%, white), color-mix(in oklab, var(--accent-clay) 12%, var(--surface-panel)));
+  padding: clamp(1.6rem, 4vw, 2.6rem);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.85),
+    0 42px 100px -48px color-mix(in oklab, var(--accent-red) 30%, transparent);
+}
+
+.hero-illustration-shell::before {
+  content: "";
+  position: absolute;
+  inset: 1.25rem;
+  border-radius: inherit;
+  border: 1px solid color-mix(in oklab, var(--accent-red) 9%, white);
+  pointer-events: none;
+}
+
+.hero-illustration-shell::after {
+  content: "";
+  position: absolute;
+  left: 14%;
+  right: 14%;
+  bottom: 1.4rem;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, color-mix(in oklab, var(--accent-red) 34%, white), transparent);
+}
+
+.hero-illustration-ring {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  height: 70%;
+  width: 70%;
+  transform: translate(-50%, -50%);
+  border-radius: 999px;
+  border: 1px solid color-mix(in oklab, var(--accent-red) 18%, white);
+  opacity: 0.5;
+  animation: ring-breathe 9s ease-in-out infinite;
+}
+
+.hero-note {
+  position: absolute;
+  z-index: 3;
+  max-width: 11.5rem;
+  border-radius: 1rem;
+  border: 1px solid var(--line-soft);
+  background: rgba(255, 255, 255, 0.72);
+  padding: 0.95rem 1rem;
+  box-shadow: var(--shadow-soft);
+  backdrop-filter: blur(12px);
+}
+
+.hero-note span {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent-red-deep);
+}
+
+.hero-note p,
+.illustration-caption p {
+  margin-top: 0.55rem;
+  font-size: 0.86rem;
+  line-height: 1.6;
+  color: var(--ink-muted);
+}
+
+.hero-note-left {
+  left: 1.6rem;
+  top: 1.7rem;
+}
+
+.hero-note-left-home {
+  left: 0.9rem;
+  top: 1rem;
+  max-width: 16rem;
+}
+
+.hero-note-left-home p {
+  font-size: 0.82rem;
+  line-height: 1.75;
+}
+
+.hero-note-right {
+  right: 1.45rem;
+  bottom: 1.55rem;
+}
+
+@media (max-width: 1360px) {
+  .hero-stage-shell-home {
+    display: grid;
+    grid-template-rows: auto auto auto;
+    gap: 1.25rem;
+    align-content: start;
+  }
+
+  .hero-stage-shell-home .hero-note {
+    position: relative;
+    left: auto;
+    right: auto;
+    top: auto;
+    bottom: auto;
+    max-width: none;
+    margin: 0;
+  }
+
+  .hero-note-left-home {
+    max-width: min(100%, 20rem);
+  }
+
+  .hero-stage-shell-home .hero-note-right {
+    justify-self: end;
+    max-width: min(100%, 16rem);
+  }
+
+  .hero-stage-shell-home .hero-stage-art {
+    min-height: clamp(18rem, 34vw, 25rem);
+    height: auto;
+    justify-content: center;
+  }
+
+  .hero-stage-shell-home .hero-collage-shell {
+    width: min(100%, 34rem);
+    margin-inline: auto;
+  }
+}
+
+.illustration-caption {
+  position: relative;
+  z-index: 2;
+  margin-top: 0.4rem;
+  border-top: 1px solid var(--line-soft);
+  padding-top: 1.1rem;
+}
+
+.product-band {
+  display: grid;
+  gap: 2rem;
+  border-radius: clamp(2rem, 4vw, 2.8rem);
+  border: 1px solid var(--line-soft);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.68), rgba(255, 255, 255, 0.36)),
+    var(--surface-panel);
+  padding: clamp(1.5rem, 4vw, 2.3rem);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.84),
+    var(--shadow-panel);
+}
+
+.standards-panel,
+.final-cta-panel {
+  position: relative;
+  overflow: hidden;
+}
+
+.standards-panel::before,
+.final-cta-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 85% 18%, color-mix(in oklab, var(--accent-sandal) 16%, transparent) 0%, transparent 26%),
+    linear-gradient(140deg, rgba(255,255,255,0.28) 0%, transparent 34%);
+  opacity: 0.82;
+}
+
+.product-showcase {
+  display: grid;
+  gap: 2.4rem;
+  border-top: 1px solid var(--line-soft);
+  padding-top: 1.4rem;
+}
+
+.product-showcase-copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.product-number {
+  margin-bottom: 0.8rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: var(--ink-subtle);
+}
+
+.product-stage {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1.8rem;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0)),
+    color-mix(in oklab, var(--surface-ground) 74%, white);
+  padding: 1.75rem;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.86),
+    var(--shadow-soft);
+  transition:
+    transform 460ms var(--ease-out-expo),
+    box-shadow 460ms var(--ease-out-expo),
+    border-color 360ms var(--ease-out-quart);
+}
+
+.product-stage-tag {
+  top: 1rem;
+  right: 1rem;
+  padding: 0.82rem 0.92rem;
+  font-size: 0.68rem;
+  line-height: 1.55;
+}
+
+.product-stage-doors {
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.56), rgba(255,255,255,0)),
+    color-mix(in oklab, var(--accent-sandal) 18%, white);
+}
+
+.product-stage-frames {
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.52), rgba(255,255,255,0)),
+    color-mix(in oklab, var(--surface-ground) 74%, white);
+}
+
+.product-stage-boards {
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.56), rgba(255,255,255,0)),
+    color-mix(in oklab, var(--accent-clay) 10%, white);
+}
+
+.product-stage::after {
+  content: "";
+  position: absolute;
+  left: 16%;
+  right: 16%;
+  bottom: 1.25rem;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, color-mix(in oklab, var(--accent-red) 24%, white), transparent);
+}
+
+.product-stage:hover {
+  transform: translateY(-6px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    0 34px 78px -38px color-mix(in oklab, var(--accent-red) 24%, transparent);
+}
+
+.product-stage-halo {
+  position: absolute;
+  inset: auto;
+  left: 50%;
+  top: 50%;
+  height: 18rem;
+  width: 18rem;
+  transform: translate(-50%, -50%);
+  border-radius: 999px;
+  background: color-mix(in oklab, var(--accent-red) 12%, transparent);
+  filter: blur(22px);
+}
+
+.palette-studio {
+  overflow: hidden;
+  border-radius: clamp(2.2rem, 4vw, 3rem);
+  border: 1px solid var(--line-soft);
+  background:
+    radial-gradient(circle at 80% 18%, rgba(255, 255, 255, 0.72), rgba(255, 255, 255, 0) 30%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0.3)),
+    color-mix(in oklab, var(--surface-band) 90%, white);
+  padding: clamp(1.6rem, 4vw, 2.8rem);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.88),
+    var(--shadow-panel);
+}
+
+.swatch-column {
+  border-radius: 1.3rem;
+  border: 1px solid var(--line-soft);
+  background: color-mix(in oklab, var(--surface-ground) 88%, white);
+  padding: 0.9rem;
+}
+
+.swatch-column-fill {
+  min-height: 12rem;
+  border-radius: 0.95rem;
+}
+
+.product-band-copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.product-band-art {
+  position: relative;
+  overflow: hidden;
+  border-radius: 2rem;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.42), rgba(255, 255, 255, 0)),
+    color-mix(in oklab, var(--surface-ground) 78%, white);
+  min-height: 20rem;
+  padding: 1.5rem;
+}
+
+.product-band-halo {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  height: 18rem;
+  width: 18rem;
+  transform: translate(-50%, -50%);
+  border-radius: 999px;
+  background: color-mix(in oklab, var(--accent-clay) 18%, transparent);
+  filter: blur(18px);
+}
+
+.range-showcase-art-panel {
+  display: grid;
+  place-items: center;
+  min-height: clamp(22rem, 42vw, 32rem);
+}
+
+.range-showcase-art-frame {
+  position: relative;
+  width: min(100%, 32rem);
+  height: min(100%, 30rem);
+  display: grid;
+  place-items: center;
+}
+
+.range-showcase-art-glow {
+  position: absolute;
+  inset: 12% 10%;
+  border-radius: 999px;
+  background:
+    radial-gradient(circle, color-mix(in oklab, var(--accent-sandal) 22%, transparent) 0%, transparent 68%);
+  filter: blur(28px);
+  opacity: 0.95;
+}
+
+.range-showcase-art-card {
+  position: relative;
+  width: min(100%, 27rem);
+  aspect-ratio: 4 / 5;
+  border-radius: 2.1rem;
+  border: 1px solid color-mix(in oklab, var(--accent-red) 12%, white);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.84), rgba(255,255,255,0.46)),
+    color-mix(in oklab, var(--surface-panel) 90%, white);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.9),
+    0 30px 70px -40px rgba(77, 43, 35, 0.28);
+  overflow: hidden;
+}
+
+.product-range-logo {
+  position: relative;
+  flex-shrink: 0;
+  align-self: flex-start;
+}
+
+.product-range-logo-featured {
+  width: clamp(11rem, 24vw, 15rem);
+}
+
+.product-range-logo-support {
+  width: clamp(8.5rem, 18vw, 12rem);
+}
+
+.spec-panel {
+  border-radius: 1.5rem;
+  padding: clamp(1.5rem, 3vw, 2.1rem);
+}
+
+.callout-panel {
+  border-radius: clamp(1.7rem, 4vw, 2.2rem);
+}
+
+.product-object {
+  position: relative;
+  width: 100%;
+  min-height: clamp(19rem, 44vw, 32rem);
+  isolation: isolate;
+  animation: object-breathe 8.4s ease-in-out infinite;
+}
+
+.hero-illustration-shell .product-object {
+  min-height: clamp(25rem, 38vw, 39rem);
+}
+
+.product-object::before {
+  content: "";
+  position: absolute;
+  left: 20%;
+  right: 20%;
+  bottom: 6%;
+  height: 1.2rem;
+  border-radius: 999px;
+  background: color-mix(in oklab, var(--accent-red-deep) 24%, transparent);
+  filter: blur(16px);
+  opacity: 0.45;
+}
+
+.door-sculpture,
+.frame-sculpture,
+.board-sculpture {
+  max-width: 30rem;
+  margin-inline: auto;
+}
+
+.product-object-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+  filter: drop-shadow(0 26px 36px rgba(77, 43, 35, 0.08));
+}
+
+.hero-illustration-shell .frame-sculpture {
+  max-width: 34rem;
+}
+
+.reveal {
+  will-change: transform, opacity, filter;
+}
+
+@keyframes ambient-drift {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  100% {
+    transform: translate3d(0, -1.5%, 0) scale(1.02);
+  }
+}
+
+@keyframes halo-drift {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  100% {
+    transform: translate3d(2rem, 1rem, 0) scale(1.08);
+  }
+}
+
+@keyframes ring-breathe {
+  0%,
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.44;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.03);
+    opacity: 0.64;
+  }
+}
+
+@keyframes beam-drift {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(14deg) scaleY(1);
+  }
+  100% {
+    transform: translate3d(0.8rem, -1rem, 0) rotate(18deg) scaleY(1.05);
+  }
+}
+
+@keyframes art-float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -10px, 0);
+  }
+}
+
+@keyframes object-breathe {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(0, -8px, 0) scale(1.01);
+  }
+}
+
+@media (min-width: 768px) {
+  .hero-shell {
+    grid-template-columns: 0.82fr 1.18fr;
+  }
+
+  .product-hero-shell,
+  .contact-hero-shell {
+    grid-template-columns: 0.82fr 1.18fr;
+  }
+
+  .hero-proof-ledger {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .product-ledger {
+    margin-top: 5rem;
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .story-grid {
+    grid-template-columns: 1.04fr 0.96fr;
+  }
+
+  .essentials-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .feature-matrix {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+
+  .feature-slab {
+    grid-column: span 2;
+  }
+
+  .feature-slab:nth-child(1),
+  .feature-slab:nth-child(2),
+  .feature-slab:nth-child(7),
+  .feature-slab:nth-child(8) {
+    grid-column: span 3;
+  }
+
+  .feature-slab:nth-child(4) {
+    grid-column: span 4;
+  }
+
+  .feature-slab:nth-child(5) {
+    grid-column: span 2;
+  }
+
+  .contact-checklist {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.2rem 1rem;
+  }
+
+  .feature-slab-offset {
+    transform: translateY(1.15rem);
+  }
+
+  .product-band {
+    grid-template-columns: 0.96fr 1.04fr;
+    align-items: center;
+  }
+
+  .feature-rail {
+    grid-template-columns: auto 1fr;
+    align-items: start;
+  }
+
+  .product-band-reverse {
+    grid-template-columns: 1.04fr 0.96fr;
+  }
+
+  .product-band-reverse .product-band-copy {
+    order: 2;
+  }
+
+  .product-band-reverse .product-band-art {
+    order: 1;
+  }
+
+  .product-showcase {
+    grid-template-columns: 0.94fr 1.06fr;
+    align-items: center;
+  }
+
+  .product-showcase-reverse {
+    grid-template-columns: 1.06fr 0.94fr;
+  }
+
+  .product-showcase-reverse .product-showcase-copy {
+    order: 2;
+  }
+
+  .product-showcase-reverse .product-stage {
+    order: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .proof-chip:hover,
+  .product-stage:hover {
+    transform: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .site-graphic {
+    opacity: 0.28;
+  }
+
+  .site-graphic-circles::before {
+    width: 20rem;
+    height: 20rem;
+    left: -8rem;
+    top: 34rem;
+  }
+
+  .site-graphic-circles::after {
+    width: 15rem;
+    height: 15rem;
+    right: -6rem;
+    top: 6rem;
+  }
+
+  .site-graphic-keys::before,
+  .site-graphic-keys::after {
+    width: 7rem;
+    height: 7rem;
+  }
+
+  .hero-note {
+    position: relative;
+    left: auto;
+    right: auto;
+    top: auto;
+    bottom: auto;
+    max-width: none;
+    margin-top: 1rem;
+  }
+
+  .hero-note-left-home {
+    margin-top: 0;
+  }
+
+  .brand-lockup-compact {
+    padding: 0;
+  }
+
+  .brand-lockup-image-compact {
+    width: min(8.2rem, 100%);
+  }
+
+  .brand-lockup-image-stacked {
+    width: min(20rem, 100%);
+  }
+
+  .hero-brand-lockup .brand-lockup-image-stacked {
+    width: min(19rem, 100%);
+  }
+
+  .hero-stage-caption,
+  .product-stage-tag {
+    position: relative;
+    top: auto;
+    right: auto;
+    max-width: none;
+    margin-bottom: 1rem;
+  }
+
+  .hero-stage-shell {
+    min-height: auto;
+  }
+
+  .feature-slab-offset {
+    transform: none;
+  }
+}
