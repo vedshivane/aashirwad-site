@@ -27,8 +27,8 @@ const gambetta = localFont({
 
 export const metadata: Metadata = {
   title: {
-    default: "EcoAashirwad | Highest Quality WPC",
-    template: "%s | EcoAashirwad | Highest Quality WPC",
+    default: "ECOAashirvad",
+    template: "%s | ECOAashirvad",
   },
   description: "WPC doors, frames, and boards built around strength, density, and resin.",
   icons: {

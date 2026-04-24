@@ -361,9 +361,7 @@ function SquareIcon() {
 function MouldingIcon() {
   return (
     <svg width="40" height="24" viewBox="0 0 100 60" fill="currentColor" aria-hidden="true">
-      <path d="M0 60 H100 V32 H64 V0 H14 Q4 0 4 10 V16 H0 Z" />
-      <path d="M12 60 V50 H24 V60 Z" />
-      <path d="M42 60 V50 H54 V60 Z" />
+      <path d="M6 60 H34 V50 H46 V60 H54 V50 H66 V60 H94 V32 H60 V0 H24 Q6 0 6 18 Z" />
     </svg>
   );
 }
@@ -479,20 +477,23 @@ function CrossSection3DMoulding({
   const { width, depth, widthText, depthText } = parseSizeLabel(sizeLabel, 4, 2.5);
   const widthScale = width / 4;
   const depthScale = depth / 2.5;
-  const x0 = 18;
-  const yTop = 86;
-  const upperWidth = 88 * widthScale;
+  const x0 = 30;
+  const yTop = 85;
+  const upperWidth = 75 * widthScale;
   const depthOffset = 60 * depthScale;
-  const shoulderY = 118;
+  const shoulderY = 115;
   const topY = yTop - depthOffset;
-  const frontWidth = upperWidth + depthOffset + 4 * widthScale;
+  const frontWidth = upperWidth + depthOffset;
   const widthEnd = x0 + frontWidth;
   const depthFaceX = x0 + upperWidth;
   const farRightX = widthEnd + depthOffset;
-  const notchWidth = 16 * widthScale;
-  const notchDepth = 15;
-  const notchGap = 34 * widthScale;
-  const firstNotchX = x0 + 18 * widthScale;
+  const curveInset = 18 * widthScale;
+  const curveDrop = 14;
+  const notchWidth = 14 * widthScale;
+  const notchDepth = 12;
+  const notchGap = 28 * widthScale;
+  const notchRun = notchWidth * 2 + notchGap;
+  const firstNotchX = x0 + (frontWidth - notchRun) / 2;
   const secondNotchX = firstNotchX + notchWidth + notchGap;
   const frontPath = [
     `M ${x0} 175`,
@@ -508,8 +509,8 @@ function CrossSection3DMoulding({
     `L ${widthEnd} ${shoulderY}`,
     `L ${depthFaceX} ${shoulderY}`,
     `L ${depthFaceX} ${yTop}`,
-    `L ${x0 + 18 * widthScale} ${yTop}`,
-    `Q ${x0} ${yTop} ${x0} ${yTop + 12}`,
+    `L ${x0 + curveInset} ${yTop}`,
+    `Q ${x0} ${yTop} ${x0} ${yTop + curveDrop}`,
     "Z",
   ].join(" ");
   const frontShadeId = `md-front-${hex.replace("#", "")}`;
@@ -537,9 +538,9 @@ function CrossSection3DMoulding({
       </defs>
 
       <g>
-        <path d={`M${x0 + 8 * widthScale} ${yTop} L${depthFaceX} ${yTop} L${widthEnd} ${topY} L${x0 + depthOffset + 8 * widthScale} ${topY} Z`} fill={outer} />
+        <path d={`M${x0 + curveInset} ${yTop} L${depthFaceX} ${yTop} L${widthEnd} ${topY} L${x0 + depthOffset + curveInset} ${topY} Z`} fill={outer} />
         <path d={`M${depthFaceX} ${shoulderY} L${widthEnd} ${shoulderY} L${farRightX} ${shoulderY - depthOffset} L${widthEnd} ${shoulderY - depthOffset} Z`} fill={outer} />
-        <path d={`M${x0 + 8 * widthScale} ${yTop} L${depthFaceX} ${yTop} L${widthEnd} ${topY} L${x0 + depthOffset + 8 * widthScale} ${topY} Z`} fill={`url(#${topShadeId})`} />
+        <path d={`M${x0 + curveInset} ${yTop} L${depthFaceX} ${yTop} L${widthEnd} ${topY} L${x0 + depthOffset + curveInset} ${topY} Z`} fill={`url(#${topShadeId})`} />
         <path d={`M${depthFaceX} ${shoulderY} L${widthEnd} ${shoulderY} L${farRightX} ${shoulderY - depthOffset} L${widthEnd} ${shoulderY - depthOffset} Z`} fill={`url(#${topShadeId})`} />
 
         <path d={`M${depthFaceX} ${yTop} L${depthFaceX} ${shoulderY} L${widthEnd} ${shoulderY - depthOffset} L${widthEnd} ${topY} Z`} fill={side} />
@@ -551,7 +552,7 @@ function CrossSection3DMoulding({
         <path d={frontPath} fill={`url(#${frontShadeId})`} />
 
         <path
-          d={`M${x0 + 18 * widthScale} ${yTop} L${depthFaceX} ${yTop} L${depthFaceX} ${shoulderY} L${widthEnd} ${shoulderY} L${widthEnd} 175`}
+          d={`M${x0 + curveInset} ${yTop} L${depthFaceX} ${yTop} L${depthFaceX} ${shoulderY} L${widthEnd} ${shoulderY} L${widthEnd} 175`}
           fill="none"
           stroke="rgba(255,255,255,0.18)"
           strokeWidth="1"
