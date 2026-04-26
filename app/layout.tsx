@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import Script from "next/script";
 
 import { MotionProvider } from "@/components/motion-provider";
 import { SiteShell } from "@/components/site-shell";
 import { absoluteUrl, siteDescription, siteLocale, siteName, siteUrl } from "@/lib/site";
 import "./globals.css";
+
+const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID ?? "";
 
 const cabinetGrotesk = localFont({
   src: [
@@ -29,7 +32,7 @@ const gambetta = localFont({
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: `${siteName} | Premium WPC Doors, Frames & Boards`,
+    default: `${siteName} | Best Quality WPC Doors, Frames & Boards`,
     template: `%s | ${siteName}`,
   },
   description: siteDescription,
@@ -46,7 +49,7 @@ export const metadata: Metadata = {
     type: "website",
     url: "/",
     siteName,
-    title: `${siteName} | Premium WPC Doors, Frames & Boards`,
+    title: `${siteName} | Best Quality WPC Doors, Frames & Boards by Eco Aashirwad`,
     description: siteDescription,
     locale: siteLocale,
     images: [
@@ -60,7 +63,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: `${siteName} | Premium WPC Doors, Frames & Boards`,
+    title: `${siteName} | Best Quality WPC Doors, Frames & Boards by Eco Aashirwad`,
     description: siteDescription,
     images: [absoluteUrl("/images/home/collage.png")],
   },
@@ -74,6 +77,22 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${cabinetGrotesk.variable} ${gambetta.variable}`}>
       <body>
+        {GA_MEASUREMENT_ID && (
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+              strategy="afterInteractive"
+            />
+            <Script id="google-analytics" strategy="afterInteractive">
+              {`
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', '${GA_MEASUREMENT_ID}');
+              `}
+            </Script>
+          </>
+        )}
         <MotionProvider>
           <SiteShell>{children}</SiteShell>
         </MotionProvider>

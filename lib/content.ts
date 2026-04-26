@@ -1,6 +1,6 @@
 import type { ProductFamily, ProductSlug } from "@/lib/types";
 
-export const contactEmail = "sbic1661@gmail.com";
+export const contactEmail = "aashirwadwpcsales@gmail.com";
 
 export const navigation = [
   { href: "/", label: "Home" },

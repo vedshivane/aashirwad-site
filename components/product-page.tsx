@@ -97,7 +97,7 @@ export function ProductPage({ family }: ProductPageProps) {
                 <Link href="/contact" className="button-primary">
                   {family.cta.primaryLabel}
                 </Link>
-                <Link href={`mailto:sbic1661@gmail.com`} className="button-secondary">
+                <Link href={`mailto:aashirwadwpcsales@gmail.com`} className="button-secondary">
                   Email us
                 </Link>
               </div>
