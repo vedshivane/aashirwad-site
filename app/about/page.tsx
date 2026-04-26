@@ -52,7 +52,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <div className="mx-auto max-w-[1400px] px-5 sm:px-8 lg:px-10 pb-2">
+      <div className="mx-auto max-w-[1400px] px-5 py-4 sm:px-8 lg:px-10">
         <ColorDisclaimer />
       </div>
 
