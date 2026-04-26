@@ -12,7 +12,10 @@ import { parseBrandText } from "@/lib/parse-brand";
 
 export const metadata: Metadata = {
   title: "About",
-  description: "ECOAashirwad WPC doors, frames, and boards built around strength and density.",
+  description: "Eco Aashirwad — over a decade of best-quality WPC doors, frames, and boards built around strength, density, and resin-bonded construction in South India.",
+  alternates: {
+    canonical: "/about",
+  },
 };
 
 export default function AboutPage() {
@@ -68,7 +71,7 @@ export default function AboutPage() {
 
           <div className="grid gap-6 md:grid-cols-3">
             {aboutValues.map((value, index) => (
-              <Reveal key={value.title} delay={index * 120} className="surface-panel about-value-panel">
+              <Reveal key={value.title} delay={index * 70} className="surface-panel about-value-panel">
                 <h2 className="font-display text-[1.9rem] tracking-[-0.05em] text-[var(--ink-strong)]">
                   {value.title}
                 </h2>

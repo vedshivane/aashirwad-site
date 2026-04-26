@@ -32,7 +32,10 @@ export async function generateMetadata({
 
   return {
     title: family.name,
-    description: family.summary,
+    description: `Best quality ${family.name.toLowerCase()} by Eco Aashirwad. ${family.summary}`,
+    alternates: {
+      canonical: `/products/${slug}`,
+    },
   };
 }
 

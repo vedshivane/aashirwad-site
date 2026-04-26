@@ -34,7 +34,7 @@ import {
 } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Premium WPC Doors, Frames & Boards",
+  title: "Best Quality WPC Doors, Frames & Boards | Eco Aashirwad",
   description: siteDescription,
   alternates: {
     canonical: "/",
@@ -97,7 +97,7 @@ export default function HomePage() {
         "@type": "CollectionPage",
         "@id": absoluteUrl("/#webpage"),
         url: absoluteUrl("/"),
-        name: `${siteName} | Premium WPC Doors, Frames & Boards`,
+        name: `${siteName} | Best Quality WPC Doors, Frames & Boards by Eco Aashirwad`,
         description: siteDescription,
         inLanguage: "en-IN",
         isPartOf: {
@@ -191,7 +191,7 @@ export default function HomePage() {
             </Reveal>
           </div>
 
-        <Reveal delay={180} className="hero-proof-ledger mt-8 md:mt-16">
+        <Reveal delay={100} className="hero-proof-ledger mt-8 md:mt-16">
               {homeHero.proofPoints.map((point) => (
                 <div key={point.label} className="hero-proof-item">
                   <span>{point.label}</span>
@@ -238,7 +238,7 @@ export default function HomePage() {
               {featuresBlock.map((feature, i) => (
                 <Reveal 
                   key={i} 
-                  delay={i * 100}
+                  delay={i * 70}
                   className="rounded-2xl border border-[var(--line-soft)] bg-[var(--surface-ground)] p-6 md:p-8"
                 >
                   <h3 className="font-display text-xl font-medium tracking-tight md:text-2xl">
@@ -270,7 +270,7 @@ export default function HomePage() {
                 key={family.slug}
                 className={`product-showcase ${index % 2 === 1 ? "product-showcase-reverse" : ""}`}
               >
-                <Reveal delay={index * 120} className="product-showcase-copy">
+                <Reveal delay={index * 80} className="product-showcase-copy">
                   <p className="product-number">0{index + 1}</p>
                   <p className="eyebrow">{family.name}</p>
                   <h2 className="section-title range-product-title mt-4">{family.strap}</h2>
@@ -287,7 +287,7 @@ export default function HomePage() {
                   </div>
                 </Reveal>
 
-                <Reveal delay={index * 120 + 80} className={`product-stage product-stage-${family.slug}`}>
+                <Reveal delay={index * 80 + 60} className={`product-stage product-stage-${family.slug}`}>
                   <div className="product-stage-grid" />
                   <div className="product-stage-halo" />
                   <LuxuryFloat

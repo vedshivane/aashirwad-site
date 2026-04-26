@@ -7,7 +7,10 @@ import { CollabSection } from "@/components/collab-section";
 
 export const metadata: Metadata = {
   title: "Contact",
-  description: "Contact Eco Aashirwad for WPC doors, frames, and boards.",
+  description: "Contact Eco Aashirwad for best-quality WPC doors, frames, and boards. Share your category, quantity, and size — we serve dealers, builders, and architects across South India.",
+  alternates: {
+    canonical: "/contact",
+  },
 };
 
 export default function ContactPage() {

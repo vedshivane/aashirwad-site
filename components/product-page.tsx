@@ -118,7 +118,7 @@ export function ProductPage({ family }: ProductPageProps) {
             </Reveal>
           </div>
 
-          <Reveal delay={180} className="product-ledger">
+          <Reveal delay={100} className="product-ledger">
             <div className="product-ledger-item">
               <span>Core</span>
               <strong>{family.materialPromise}</strong>
@@ -171,7 +171,7 @@ export function ProductPage({ family }: ProductPageProps) {
 
           <div className={`mt-12 grid gap-6 ${family.specs.length === 1 ? "grid-cols-1" : "lg:grid-cols-2"}`}>
             {family.specs.map((group, index) => (
-              <Reveal key={group.title} delay={index * 100} className="spec-panel product-spec-panel">
+              <Reveal key={group.title} delay={index * 70} className="spec-panel product-spec-panel">
                 <div className="space-y-4">
                   <h2 className="font-display text-[2.1rem] tracking-[-0.05em] text-[var(--ink-strong)]">
                     {group.title}

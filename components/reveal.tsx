@@ -22,17 +22,15 @@ export function Reveal({ children, className, delay = 0, ...props }: RevealProps
           ? false
           : {
               opacity: 0,
-              transform: "translate3d(0, 26px, 0) scale(0.988)",
-              filter: "blur(8px)",
+              transform: "translate3d(0, 16px, 0) scale(0.993)",
             }
       }
       animate={{
         opacity: 1,
         transform: "translate3d(0, 0, 0) scale(1)",
-        filter: "blur(0px)",
       }}
       transition={{
-        duration: reduceMotion ? 0.01 : 0.9,
+        duration: reduceMotion ? 0.01 : 0.48,
         delay: delay / 1000,
         ease: [0.22, 1, 0.36, 1],
       }}

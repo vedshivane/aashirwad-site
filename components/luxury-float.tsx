@@ -45,7 +45,7 @@ export function LuxuryFloat({
       }
       transition={{
         opacity: {
-          duration: reduceMotion ? 0.01 : 0.9,
+          duration: reduceMotion ? 0.01 : 0.48,
           delay,
           ease: [0.22, 1, 0.36, 1],
         },

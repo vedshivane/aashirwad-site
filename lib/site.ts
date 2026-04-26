@@ -5,7 +5,7 @@ const rawSiteUrl =
     ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
     : undefined) ||
   (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : undefined) ||
-  "http://localhost:3000";
+  "https://ecoaashirwad.com";
 
 export const siteUrl = rawSiteUrl.replace(/\/$/, "");
 export const siteName = "EcoAashirwad";

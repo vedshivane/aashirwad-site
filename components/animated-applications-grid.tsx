@@ -5,7 +5,7 @@ import { motion } from "motion/react";
 import { Reveal } from "./reveal";
 import type { ApplicationUse } from "@/lib/types";
 
-const STAGGER_DELAY_MS = 120;
+const STAGGER_DELAY_MS = 70;
 const HOVER_DURATION = 0.36;
 const EASE_CURVE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 

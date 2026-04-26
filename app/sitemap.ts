@@ -12,13 +12,23 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${siteUrl}${path || "/"}`,
       lastModified: now,
       changeFrequency: path === "" ? ("weekly" as const) : ("monthly" as const),
-      priority: path === "" ? 1 : 0.8,
+      priority: path === "" ? 1 : 0.7,
+      alternates: {
+        languages: {
+          "en-IN": `${siteUrl}${path || "/"}`,
+        },
+      },
     })),
     ...productFamilies.map((family) => ({
       url: `${siteUrl}/products/${family.slug}`,
       lastModified: now,
       changeFrequency: "monthly" as const,
       priority: 0.9,
+      alternates: {
+        languages: {
+          "en-IN": `${siteUrl}/products/${family.slug}`,
+        },
+      },
     })),
   ];
 }
