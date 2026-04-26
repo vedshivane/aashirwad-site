@@ -10,6 +10,7 @@ import { FrameVisualizer } from "@/components/frame-visualizer";
 import { ColorDisclaimer } from "@/components/color-disclaimer";
 import { ProductRangeIntroSection } from "@/components/product-range-intro";
 import { ProductRangeShowcases } from "@/components/product-range-showcases";
+import { CncDoorsSection } from "@/components/cnc-doors-section";
 import { AnimatedApplicationsGrid } from "@/components/animated-applications-grid";
 import type { ProductFamily } from "@/lib/types";
 
@@ -152,6 +153,8 @@ export function ProductPage({ family }: ProductPageProps) {
           <FrameVisualizer />
         </section>
       )}
+
+      {family.slug === "doors" && <CncDoorsSection />}
 
       <ProductRangeIntroSection rangeIntro={family.rangeIntro} />
       {family.rangeShowcases ? <ProductRangeShowcases items={family.rangeShowcases} /> : null}
