@@ -9,6 +9,7 @@ import { SectionHeading } from "@/components/section-heading";
 import { VisionSection } from "@/components/vision-section";
 import { CollabSection } from "@/components/collab-section";
 import { FeatureMarquee } from "@/components/feature-marquee";
+import { ColorDisclaimer } from "@/components/color-disclaimer";
 import {
   homeHero,
   productFamilies,
@@ -190,7 +191,7 @@ export default function HomePage() {
             </Reveal>
           </div>
 
-            <Reveal delay={180} className="hero-proof-ledger mt-12 md:mt-24">
+        <Reveal delay={180} className="hero-proof-ledger mt-8 md:mt-16">
               {homeHero.proofPoints.map((point) => (
                 <div key={point.label} className="hero-proof-item">
                   <span>{point.label}</span>
@@ -225,7 +226,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="px-5 py-16 md:px-8 md:py-20 lg:px-10 bg-[var(--surface-panel)]">
+      <section className="px-5 py-10 md:px-8 md:py-16 lg:px-10 bg-[var(--surface-panel)]">
         <div className="mx-auto max-w-[1400px]">
           <Reveal>
             <SectionHeading
@@ -253,7 +254,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="px-5 py-16 md:px-8 md:py-20 lg:px-10">
+      <section className="px-5 py-12 md:px-8 md:py-16 lg:px-10">
         <div className="mx-auto max-w-[1400px]">
           <Reveal className="range-header">
             <SectionHeading
@@ -263,7 +264,7 @@ export default function HomePage() {
             />
           </Reveal>
 
-          <div className="mt-16 grid gap-14">
+          <div className="mt-10 grid gap-8 sm:mt-12 md:gap-12">
             {productFamilies.map((family, index) => (
               <div
                 key={family.slug}
@@ -301,6 +302,9 @@ export default function HomePage() {
               </div>
             ))}
           </div>
+          <div className="mt-8 px-1">
+            <ColorDisclaimer />
+          </div>
         </div>
       </section>
 
@@ -311,7 +315,7 @@ export default function HomePage() {
         body="Use the interactive map to locate the store, get directions, and verify the current showroom location before you visit."
       />
 
-      <section className="page-band px-5 py-16 md:px-8 md:py-20 lg:px-10">
+      <section className="page-band px-5 py-12 md:px-8 md:py-16 lg:px-10">
         <div className="mx-auto max-w-[1100px]">
           <Reveal className="callout-panel product-inquiry-panel final-cta-panel">
             <p className="eyebrow">Contact</p>

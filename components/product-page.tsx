@@ -10,6 +10,7 @@ import { FrameVisualizer } from "@/components/frame-visualizer";
 import { ColorDisclaimer } from "@/components/color-disclaimer";
 import { ProductRangeIntroSection } from "@/components/product-range-intro";
 import { ProductRangeShowcases } from "@/components/product-range-showcases";
+import { AnimatedApplicationsGrid } from "@/components/animated-applications-grid";
 import type { ProductFamily } from "@/lib/types";
 
 interface ProductPageProps {
@@ -155,7 +156,7 @@ export function ProductPage({ family }: ProductPageProps) {
       <ProductRangeIntroSection rangeIntro={family.rangeIntro} />
       {family.rangeShowcases ? <ProductRangeShowcases items={family.rangeShowcases} /> : null}
 
-      <section className="page-band px-5 py-16 md:px-8 md:py-20 lg:px-10">
+      <section className="page-band px-5 py-12 md:px-8 md:py-16 lg:px-10">
         <div className="mx-auto max-w-[1400px]">
           <Reveal className="max-w-4xl">
             <SectionHeading
@@ -216,7 +217,7 @@ export function ProductPage({ family }: ProductPageProps) {
       </section>
 
       {family.showFinishes ? (
-        <section className="px-5 py-16 md:px-8 md:py-20 lg:px-10">
+        <section className="px-5 py-12 md:px-8 md:py-16 lg:px-10">
           <div className="mx-auto max-w-[1400px]">
             <Reveal className="max-w-4xl">
               <SectionHeading
@@ -267,7 +268,7 @@ export function ProductPage({ family }: ProductPageProps) {
           </div>
         </section>
       ) : (
-        <section className="px-5 py-16 md:px-8 md:py-20 lg:px-10">
+        <section className="px-5 py-12 md:px-8 md:py-16 lg:px-10">
           <div className="mx-auto max-w-[1400px]">
             <Reveal className="max-w-4xl">
               <SectionHeading
@@ -277,18 +278,13 @@ export function ProductPage({ family }: ProductPageProps) {
               />
             </Reveal>
 
-            <div className="mt-12 grid gap-6 md:grid-cols-3">
-              {family.applications.map((application, index) => (
-                <Reveal key={application.name} delay={index * 100} className="surface-panel contact-panel">
-                  <h3 className="font-display text-[1.72rem] tracking-[-0.04em] text-[var(--ink-strong)]">
-                    {application.name}
-                  </h3>
-                  <p className="mt-5 text-[1.05rem] font-medium leading-[1.85] text-[var(--ink-primary)]">
-                    {application.description}
-                  </p>
-                </Reveal>
-              ))}
-            </div>
+            <AnimatedApplicationsGrid applications={family.applications} />
+
+            {family.slug === "boards" && (
+              <div className="mt-8">
+                <ColorDisclaimer />
+              </div>
+            )}
           </div>
         </section>
       )}
@@ -330,7 +326,7 @@ export function ProductPage({ family }: ProductPageProps) {
         </div>
       </section>
 
-      <section className="page-band px-5 py-16 md:px-8 md:py-20 lg:px-10">
+      <section className="page-band px-5 py-12 md:px-8 md:py-16 lg:px-10">
         <div className="mx-auto max-w-[1100px]">
           <Reveal className="callout-panel product-inquiry-panel">
             <p className="eyebrow">Contact</p>

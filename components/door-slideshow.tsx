@@ -17,9 +17,9 @@ const slides = [
     detail: "Patterned routed WPC design",
   },
   {
-    name: "White Solid",
+    name: "Ivory Solid",
     src: "/images/doors/white-solid-panel.png",
-    detail: "Plain WPC white door",
+    detail: "Plain WPC ivory door",
   },
   {
     name: "Grey Solid",
@@ -27,9 +27,9 @@ const slides = [
     detail: "Plain WPC grey door",
   },
   {
-    name: "White Solid Design",
+    name: "Ivory Solid Design",
     src: "/images/doors/white-solid-designed.png",
-    detail: "WPC white door with routed design",
+    detail: "WPC ivory door with routed design",
   },
   {
     name: "Grey Solid Design",

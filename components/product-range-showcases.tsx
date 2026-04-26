@@ -13,8 +13,8 @@ export function ProductRangeShowcases({ items }: ProductRangeShowcasesProps) {
   }
 
   return (
-    <section className="px-5 py-16 md:px-8 md:py-20 lg:px-10">
-      <div className="mx-auto flex max-w-[1400px] flex-col gap-8 md:gap-10">
+    <section className="px-5 py-12 md:px-8 md:py-16 lg:px-10">
+      <div className="mx-auto flex max-w-[1400px] flex-col gap-6 md:gap-8">
         {items.map((item, index) => {
           const reverse = index % 2 === 1;
 

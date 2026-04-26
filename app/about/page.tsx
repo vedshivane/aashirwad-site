@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { AboutProductSlideshow } from "@/components/about-product-slideshow";
+import { ColorDisclaimer } from "@/components/color-disclaimer";
 import { LocationSection } from "@/components/location-section";
 import { LuxuryFloat } from "@/components/luxury-float";
 import { Reveal } from "@/components/reveal";
@@ -51,7 +52,11 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="page-band px-5 py-16 md:px-8 md:py-20 lg:px-10">
+      <div className="mx-auto max-w-[1400px] px-5 sm:px-8 lg:px-10 pb-2">
+        <ColorDisclaimer />
+      </div>
+
+      <section className="page-band px-5 py-12 md:px-8 md:py-16 lg:px-10">
         <div className="mx-auto grid max-w-[1400px] gap-8 lg:grid-cols-[0.84fr_1.16fr]">
           <Reveal>
             <SectionHeading
@@ -80,7 +85,7 @@ export default function AboutPage() {
         body="The map below points directly to the store so architects, dealers, builders, and project buyers can locate the business without relying on plain address text."
       />
 
-      <section className="px-5 py-16 md:px-8 md:py-20 lg:px-10">
+      <section className="px-5 py-12 md:px-8 md:py-16 lg:px-10">
         <div className="mx-auto max-w-[1100px]">
           <Reveal className="callout-panel product-inquiry-panel">
             <p className="eyebrow">Contact</p>
