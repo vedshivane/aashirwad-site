@@ -9,12 +9,34 @@ import { Reveal } from "@/components/reveal";
 import { SectionHeading } from "@/components/section-heading";
 import { aboutValues } from "@/lib/content";
 import { parseBrandText } from "@/lib/parse-brand";
+import { absoluteUrl, siteDescription, siteName } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "About",
   description: "Eco Aashirwad — over a decade of best-quality WPC doors, frames, and boards built around strength, density, and resin-bonded construction in South India.",
   alternates: {
     canonical: "/about",
+  },
+  openGraph: {
+    type: "website",
+    url: "/about",
+    siteName,
+    title: `About | ${siteName}`,
+    description: "Eco Aashirwad — over a decade of best-quality WPC doors, frames, and boards built around strength, density, and resin-bonded construction in South India.",
+    images: [
+      {
+        url: absoluteUrl("/images/home/collage.png"),
+        width: 1200,
+        height: 630,
+        alt: `${siteName} WPC doors, frames, and boards`,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `About | ${siteName}`,
+    description: "Eco Aashirwad — over a decade of best-quality WPC doors, frames, and boards built around strength, density, and resin-bonded construction in South India.",
+    images: [absoluteUrl("/images/home/collage.png")],
   },
 };
 

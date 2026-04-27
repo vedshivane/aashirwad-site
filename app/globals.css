@@ -60,6 +60,7 @@ body::before {
   inset: 0;
   pointer-events: none;
   opacity: 0.62;
+  will-change: transform;
   background:
     radial-gradient(circle at 16% 18%, rgba(255,255,255,0.86) 0, rgba(255,255,255,0.18) 18%, transparent 34%),
     radial-gradient(circle at 82% 22%, color-mix(in oklab, var(--accent-sandal) 16%, white) 0, transparent 26%),
@@ -163,6 +164,7 @@ button:active {
   opacity: 0.12;
   pointer-events: none;
   z-index: -1;
+  will-change: transform;
   animation: halo-drift 18s ease-in-out infinite alternate;
 }
 
@@ -921,7 +923,6 @@ button:active {
   justify-content: center;
   width: 100%;
   min-height: clamp(22rem, 40vw, 32rem);
-  animation: art-float 8.8s ease-in-out infinite;
 }
 
 .product-page-title {
@@ -987,7 +988,6 @@ button:active {
   width: 100%;
   height: 100%;
   min-height: clamp(22rem, 44vw, 34rem);
-  animation: art-float 8.8s ease-in-out infinite;
 }
 
 .hero-collage-shell {
@@ -1017,6 +1017,7 @@ button:active {
   opacity: 0.45;
   filter: blur(10px);
   background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,255,255,0));
+  will-change: transform;
   animation: beam-drift 11s ease-in-out infinite alternate;
 }
 
@@ -1379,6 +1380,7 @@ button:active {
   border-radius: 999px;
   border: 1px solid color-mix(in oklab, var(--accent-red) 18%, white);
   opacity: 0.5;
+  will-change: transform;
   animation: ring-breathe 9s ease-in-out infinite;
 }
 
@@ -1728,6 +1730,7 @@ button:active {
   width: 100%;
   min-height: clamp(19rem, 44vw, 32rem);
   isolation: isolate;
+  will-change: transform;
   animation: object-breathe 8.4s ease-in-out infinite;
 }
 
@@ -1768,7 +1771,7 @@ button:active {
 }
 
 .reveal {
-  will-change: transform, opacity, filter;
+  will-change: transform, opacity;
 }
 
 @keyframes ambient-drift {
