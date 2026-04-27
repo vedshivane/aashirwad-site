@@ -10,6 +10,8 @@ import { FrameVisualizer } from "@/components/frame-visualizer";
 import { ColorDisclaimer } from "@/components/color-disclaimer";
 import { ProductRangeIntroSection } from "@/components/product-range-intro";
 import { ProductRangeShowcases } from "@/components/product-range-showcases";
+import { CncDoorsSection } from "@/components/cnc-doors-section";
+import { AnimatedApplicationsGrid } from "@/components/animated-applications-grid";
 import type { ProductFamily } from "@/lib/types";
 
 interface ProductPageProps {
@@ -95,7 +97,7 @@ export function ProductPage({ family }: ProductPageProps) {
                 <Link href="/contact" className="button-primary">
                   {family.cta.primaryLabel}
                 </Link>
-                <Link href={`mailto:sbic1661@gmail.com`} className="button-secondary">
+                <Link href={`mailto:aashirwadwpcsales@gmail.com`} className="button-secondary">
                   Email us
                 </Link>
               </div>
@@ -116,7 +118,7 @@ export function ProductPage({ family }: ProductPageProps) {
             </Reveal>
           </div>
 
-          <Reveal delay={180} className="product-ledger">
+          <Reveal delay={100} className="product-ledger">
             <div className="product-ledger-item">
               <span>Core</span>
               <strong>{family.materialPromise}</strong>
@@ -152,10 +154,12 @@ export function ProductPage({ family }: ProductPageProps) {
         </section>
       )}
 
+      {family.slug === "doors" && <CncDoorsSection />}
+
       <ProductRangeIntroSection rangeIntro={family.rangeIntro} />
       {family.rangeShowcases ? <ProductRangeShowcases items={family.rangeShowcases} /> : null}
 
-      <section className="page-band px-5 py-16 md:px-8 md:py-20 lg:px-10">
+      <section className="page-band px-5 py-12 md:px-8 md:py-16 lg:px-10">
         <div className="mx-auto max-w-[1400px]">
           <Reveal className="max-w-4xl">
             <SectionHeading
@@ -167,7 +171,7 @@ export function ProductPage({ family }: ProductPageProps) {
 
           <div className={`mt-12 grid gap-6 ${family.specs.length === 1 ? "grid-cols-1" : "lg:grid-cols-2"}`}>
             {family.specs.map((group, index) => (
-              <Reveal key={group.title} delay={index * 100} className="spec-panel product-spec-panel">
+              <Reveal key={group.title} delay={index * 70} className="spec-panel product-spec-panel">
                 <div className="space-y-4">
                   <h2 className="font-display text-[2.1rem] tracking-[-0.05em] text-[var(--ink-strong)]">
                     {group.title}
@@ -216,7 +220,7 @@ export function ProductPage({ family }: ProductPageProps) {
       </section>
 
       {family.showFinishes ? (
-        <section className="px-5 py-16 md:px-8 md:py-20 lg:px-10">
+        <section className="px-5 py-12 md:px-8 md:py-16 lg:px-10">
           <div className="mx-auto max-w-[1400px]">
             <Reveal className="max-w-4xl">
               <SectionHeading
@@ -267,7 +271,7 @@ export function ProductPage({ family }: ProductPageProps) {
           </div>
         </section>
       ) : (
-        <section className="px-5 py-16 md:px-8 md:py-20 lg:px-10">
+        <section className="px-5 py-12 md:px-8 md:py-16 lg:px-10">
           <div className="mx-auto max-w-[1400px]">
             <Reveal className="max-w-4xl">
               <SectionHeading
@@ -277,18 +281,13 @@ export function ProductPage({ family }: ProductPageProps) {
               />
             </Reveal>
 
-            <div className="mt-12 grid gap-6 md:grid-cols-3">
-              {family.applications.map((application, index) => (
-                <Reveal key={application.name} delay={index * 100} className="surface-panel contact-panel">
-                  <h3 className="font-display text-[1.72rem] tracking-[-0.04em] text-[var(--ink-strong)]">
-                    {application.name}
-                  </h3>
-                  <p className="mt-5 text-[1.05rem] font-medium leading-[1.85] text-[var(--ink-primary)]">
-                    {application.description}
-                  </p>
-                </Reveal>
-              ))}
-            </div>
+            <AnimatedApplicationsGrid applications={family.applications} />
+
+            {family.slug === "boards" && (
+              <div className="mt-8">
+                <ColorDisclaimer />
+              </div>
+            )}
           </div>
         </section>
       )}
@@ -330,7 +329,7 @@ export function ProductPage({ family }: ProductPageProps) {
         </div>
       </section>
 
-      <section className="page-band px-5 py-16 md:px-8 md:py-20 lg:px-10">
+      <section className="page-band px-5 py-12 md:px-8 md:py-16 lg:px-10">
         <div className="mx-auto max-w-[1100px]">
           <Reveal className="callout-panel product-inquiry-panel">
             <p className="eyebrow">Contact</p>

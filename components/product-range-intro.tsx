@@ -12,7 +12,7 @@ export function ProductRangeIntroSection({
   rangeIntro,
 }: ProductRangeIntroSectionProps) {
   return (
-    <section className="px-5 py-16 md:px-8 md:py-20 lg:px-10">
+    <section className="px-5 py-12 md:px-8 md:py-16 lg:px-10">
       <div className="mx-auto max-w-[1400px]">
         <Reveal className="max-w-4xl">
           <SectionHeading

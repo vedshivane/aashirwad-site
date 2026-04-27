@@ -5,13 +5,13 @@ const rawSiteUrl =
     ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
     : undefined) ||
   (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : undefined) ||
-  "http://localhost:3000";
+  "https://ecoaashirwad.com";
 
 export const siteUrl = rawSiteUrl.replace(/\/$/, "");
 export const siteName = "EcoAashirwad";
 export const siteAlternateNames = ["Eco Aashirwad", "ECOAashirwad"];
 export const siteDescription =
-  "Premium WPC doors, frames, and boards built around strength, density, and resin.";
+  "Best quality WPC doors, frames, and boards by Eco Aashirwad — premium strength, density, and resin-bonded construction.";
 export const siteLocale = "en_IN";
 export const heroImagePath = "/images/home/collage.png";
 export const businessAddress =

@@ -1,6 +1,6 @@
 import type { ProductFamily, ProductSlug } from "@/lib/types";
 
-export const contactEmail = "sbic1661@gmail.com";
+export const contactEmail = "aashirwadwpcsales@gmail.com";
 
 export const navigation = [
   { href: "/", label: "Home" },
@@ -316,15 +316,15 @@ export const productFamilies: ProductFamily[] = [
     slug: "boards",
     name: "PVC & WPC Boards",
     navLabel: "Boards",
-    strap: "PVC, hybrid, and WPC boards for fitted interiors.",
+    strap: "WPC and PVC boards for fitted interiors.",
     homeSummary:
-      "For wardrobes, kitchens, partitions, ceilings, and panel work that needs lower upkeep across economical PVC, hybrid, and premium WPC options.",
+      "For wardrobes, kitchens, partitions, ceilings, and panel work that needs lower upkeep across PVC and premium WPC options.",
     summary:
-      "Board stock for fitted interior work across economical PVC, better-quality PVC, hybrid, and premium WPC ranges.",
+      "Board stock for fitted interior work across PVC and premium WPC ranges.",
     materialPromise: "PVC and WPC boards made for fitted interiors, cabinetry, and panel work.",
     bullets: [
       "Suitable for wardrobes, kitchens, partitions, panelling, ceilings, and utility surfaces.",
-      "Available in multiple thicknesses across economical, premium PVC, hybrid, and WPC ranges.",
+      "Available in multiple thicknesses across PVC and premium WPC ranges.",
     ],
     specs: [
       {
@@ -332,9 +332,9 @@ export const productFamilies: ProductFamily[] = [
         note: "Board standard size now needs to be shown in feet. Thicknesses below reflect the latest handwritten sheet.",
         items: [
           { label: "Standard size", value: "8 ft x 4 ft" },
-          { label: "Omniwud PVC board", value: "Economical range, white, 18 mm, 12 mm, 8 mm, 6 mm" },
-          { label: "Aashirwad PVC board", value: "Better quality, white, 18 mm, 12 mm, 8 mm" },
-          { label: "Aashirwad hybrid board", value: "Best PVC board, white with yellow note on sheet, 18 mm, 12 mm, 8 mm" },
+          { label: "Omniwud PVC board", value: "Economical range, ivory, 18 mm, 12 mm, 8 mm, 6 mm" },
+          { label: "Aashirwad PVC board", value: "Better quality, ivory, 18 mm, 12 mm, 8 mm" },
+          { label: "Aashirwad hybrid board", value: "Best PVC board, ivory with yellow note on sheet, 18 mm, 12 mm, 8 mm" },
           { label: "Aashirwad WPC board", value: "High density, high strength, 18 mm, 12 mm, 8 mm" },
           { label: "Use", value: "Wardrobes, kitchens, partitions, panelling, LCD units" },
         ],
@@ -367,8 +367,8 @@ export const productFamilies: ProductFamily[] = [
     ],
     cta: { ...inquiryCta },
     media: {
-      alt: "Layered PVC, hybrid, and WPC board stack for fitted interior work.",
-      caption: "Economical PVC, hybrid, and premium WPC board options.",
+      alt: "Layered PVC and WPC board stack for fitted interior work.",
+      caption: "Board solutions from PVC to premium WPC.",
       kind: "illustration",
     },
     rangeIntro: {

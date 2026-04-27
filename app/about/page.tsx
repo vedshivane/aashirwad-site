@@ -2,16 +2,42 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { AboutProductSlideshow } from "@/components/about-product-slideshow";
+import { ColorDisclaimer } from "@/components/color-disclaimer";
 import { LocationSection } from "@/components/location-section";
 import { LuxuryFloat } from "@/components/luxury-float";
 import { Reveal } from "@/components/reveal";
 import { SectionHeading } from "@/components/section-heading";
 import { aboutValues } from "@/lib/content";
 import { parseBrandText } from "@/lib/parse-brand";
+import { absoluteUrl, siteDescription, siteName } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "About",
-  description: "ECOAashirwad WPC doors, frames, and boards built around strength and density.",
+  description: "Eco Aashirwad — over a decade of best-quality WPC doors, frames, and boards built around strength, density, and resin-bonded construction in South India.",
+  alternates: {
+    canonical: "/about",
+  },
+  openGraph: {
+    type: "website",
+    url: "/about",
+    siteName,
+    title: `About | ${siteName}`,
+    description: "Eco Aashirwad — over a decade of best-quality WPC doors, frames, and boards built around strength, density, and resin-bonded construction in South India.",
+    images: [
+      {
+        url: absoluteUrl("/images/home/collage.png"),
+        width: 1200,
+        height: 630,
+        alt: `${siteName} WPC doors, frames, and boards`,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `About | ${siteName}`,
+    description: "Eco Aashirwad — over a decade of best-quality WPC doors, frames, and boards built around strength, density, and resin-bonded construction in South India.",
+    images: [absoluteUrl("/images/home/collage.png")],
+  },
 };
 
 export default function AboutPage() {
@@ -51,7 +77,11 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="page-band px-5 py-16 md:px-8 md:py-20 lg:px-10">
+      <div className="mx-auto max-w-[1400px] px-5 py-4 sm:px-8 lg:px-10">
+        <ColorDisclaimer />
+      </div>
+
+      <section className="page-band px-5 py-12 md:px-8 md:py-16 lg:px-10">
         <div className="mx-auto grid max-w-[1400px] gap-8 lg:grid-cols-[0.84fr_1.16fr]">
           <Reveal>
             <SectionHeading
@@ -63,7 +93,7 @@ export default function AboutPage() {
 
           <div className="grid gap-6 md:grid-cols-3">
             {aboutValues.map((value, index) => (
-              <Reveal key={value.title} delay={index * 120} className="surface-panel about-value-panel">
+              <Reveal key={value.title} delay={index * 70} className="surface-panel about-value-panel">
                 <h2 className="font-display text-[1.9rem] tracking-[-0.05em] text-[var(--ink-strong)]">
                   {value.title}
                 </h2>
@@ -80,7 +110,7 @@ export default function AboutPage() {
         body="The map below points directly to the store so architects, dealers, builders, and project buyers can locate the business without relying on plain address text."
       />
 
-      <section className="px-5 py-16 md:px-8 md:py-20 lg:px-10">
+      <section className="px-5 py-12 md:px-8 md:py-16 lg:px-10">
         <div className="mx-auto max-w-[1100px]">
           <Reveal className="callout-panel product-inquiry-panel">
             <p className="eyebrow">Contact</p>

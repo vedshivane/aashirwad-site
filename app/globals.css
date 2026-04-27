@@ -1,13 +1,13 @@
 @import "tailwindcss";
 
 :root {
-  --surface-ground: oklch(0.975 0.012 55);
-  --surface-panel: oklch(0.985 0.008 50);
-  --surface-panel-strong: oklch(0.94 0.02 48);
-  --surface-band: oklch(0.952 0.018 52);
-  --surface-depth: oklch(0.93 0.022 44);
-  --surface-warm: oklch(0.965 0.022 62);
-  --surface-cream: oklch(0.988 0.014 72);
+  --surface-ground: oklch(0.982 0.008 54);
+  --surface-panel: oklch(0.991 0.005 50);
+  --surface-panel-strong: oklch(0.948 0.014 48);
+  --surface-band: oklch(0.960 0.012 52);
+  --surface-depth: oklch(0.940 0.015 44);
+  --surface-warm: oklch(0.972 0.016 62);
+  --surface-cream: oklch(0.996 0.005 60);
   --accent-red: oklch(0.54 0.17 28);
   --accent-red-deep: oklch(0.41 0.12 27);
   --accent-clay: oklch(0.73 0.08 48);
@@ -44,10 +44,10 @@ html {
 body {
   min-height: 100dvh;
   background:
-    radial-gradient(circle at 12% 10%, color-mix(in oklab, var(--accent-sandal) 34%, transparent) 0%, transparent 28%),
-    radial-gradient(circle at 88% 12%, color-mix(in oklab, var(--accent-clay) 18%, transparent) 0%, transparent 24%),
-    radial-gradient(circle at 50% 130%, color-mix(in oklab, var(--accent-umber) 14%, transparent) 0%, transparent 42%),
-    linear-gradient(135deg, rgba(255,255,255,0.72) 0%, rgba(255,255,255,0) 30%),
+    radial-gradient(circle at 12% 10%, color-mix(in oklab, var(--accent-sandal) 22%, transparent) 0%, transparent 28%),
+    radial-gradient(circle at 88% 12%, color-mix(in oklab, var(--accent-clay) 11%, transparent) 0%, transparent 24%),
+    radial-gradient(circle at 50% 130%, color-mix(in oklab, var(--accent-umber) 10%, transparent) 0%, transparent 42%),
+    linear-gradient(135deg, rgba(255,255,255,0.82) 0%, rgba(255,255,255,0) 30%),
     linear-gradient(180deg, var(--surface-cream) 0%, var(--surface-ground) 32%, color-mix(in oklab, var(--surface-depth) 70%, white) 100%);
   color: var(--ink-primary);
   font-family: var(--font-cabinet-grotesk), sans-serif;
@@ -60,6 +60,7 @@ body::before {
   inset: 0;
   pointer-events: none;
   opacity: 0.62;
+  will-change: transform;
   background:
     radial-gradient(circle at 16% 18%, rgba(255,255,255,0.86) 0, rgba(255,255,255,0.18) 18%, transparent 34%),
     radial-gradient(circle at 82% 22%, color-mix(in oklab, var(--accent-sandal) 16%, white) 0, transparent 26%),
@@ -79,21 +80,8 @@ body::before {
       color-mix(in oklab, var(--accent-red) 4%, transparent) 34deg 50deg,
       transparent 50deg 360deg
     ),
-    repeating-linear-gradient(
-      90deg,
-      rgba(120, 79, 55, 0.045) 0,
-      rgba(120, 79, 55, 0.045) 1px,
-      transparent 1px,
-      transparent 88px
-    ),
-    repeating-linear-gradient(
-      0deg,
-      rgba(120, 79, 55, 0.035) 0,
-      rgba(120, 79, 55, 0.035) 1px,
-      transparent 1px,
-      transparent 88px
-    );
-  background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 88px 88px, 88px 88px;
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='600'%3E%3Cpath d='M-10,130 C70,105 140,180 250,155 C360,130 415,82 530,115 C610,140 648,192 810,168' fill='none' stroke='rgb(155,145,135)' stroke-opacity='.10' stroke-width='1.8'/%3E%3Cpath d='M-10,330 C100,305 200,375 310,342 C420,309 475,260 590,290 C665,308 695,345 810,322' fill='none' stroke='rgb(155,145,135)' stroke-opacity='.07' stroke-width='1.1'/%3E%3Cpath d='M-10,505 C95,480 195,548 310,514 C425,480 478,432 595,462 C668,480 700,512 810,490' fill='none' stroke='rgb(155,145,135)' stroke-opacity='.06' stroke-width='.85'/%3E%3Cpath d='M200,-10 C177,90 240,172 217,278 C194,384 143,432 167,542 C188,635 238,660 214,760' fill='none' stroke='rgb(155,145,135)' stroke-opacity='.06' stroke-width='1.0'/%3E%3Cpath d='M595,-10 C570,90 633,172 610,278 C587,384 535,432 559,542 C580,635 630,660 606,760' fill='none' stroke='rgb(155,145,135)' stroke-opacity='.05' stroke-width='.9'/%3E%3C/svg%3E");
+  background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%;
   z-index: -2;
   animation: ambient-drift 32s ease-in-out infinite alternate;
 }
@@ -163,6 +151,7 @@ button:active {
   opacity: 0.12;
   pointer-events: none;
   z-index: -1;
+  will-change: transform;
   animation: halo-drift 18s ease-in-out infinite alternate;
 }
 
@@ -921,7 +910,6 @@ button:active {
   justify-content: center;
   width: 100%;
   min-height: clamp(22rem, 40vw, 32rem);
-  animation: art-float 8.8s ease-in-out infinite;
 }
 
 .product-page-title {
@@ -987,7 +975,6 @@ button:active {
   width: 100%;
   height: 100%;
   min-height: clamp(22rem, 44vw, 34rem);
-  animation: art-float 8.8s ease-in-out infinite;
 }
 
 .hero-collage-shell {
@@ -1017,6 +1004,7 @@ button:active {
   opacity: 0.45;
   filter: blur(10px);
   background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,255,255,0));
+  will-change: transform;
   animation: beam-drift 11s ease-in-out infinite alternate;
 }
 
@@ -1379,6 +1367,7 @@ button:active {
   border-radius: 999px;
   border: 1px solid color-mix(in oklab, var(--accent-red) 18%, white);
   opacity: 0.5;
+  will-change: transform;
   animation: ring-breathe 9s ease-in-out infinite;
 }
 
@@ -1728,6 +1717,7 @@ button:active {
   width: 100%;
   min-height: clamp(19rem, 44vw, 32rem);
   isolation: isolate;
+  will-change: transform;
   animation: object-breathe 8.4s ease-in-out infinite;
 }
 
@@ -1768,7 +1758,7 @@ button:active {
 }
 
 .reveal {
-  will-change: transform, opacity, filter;
+  will-change: transform, opacity;
 }
 
 @keyframes ambient-drift {

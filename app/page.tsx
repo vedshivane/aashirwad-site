@@ -9,6 +9,7 @@ import { SectionHeading } from "@/components/section-heading";
 import { VisionSection } from "@/components/vision-section";
 import { CollabSection } from "@/components/collab-section";
 import { FeatureMarquee } from "@/components/feature-marquee";
+import { ColorDisclaimer } from "@/components/color-disclaimer";
 import {
   homeHero,
   productFamilies,
@@ -33,7 +34,7 @@ import {
 } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Premium WPC Doors, Frames & Boards",
+  title: "Best Quality WPC Doors, Frames & Boards | Eco Aashirwad",
   description: siteDescription,
   alternates: {
     canonical: "/",
@@ -96,7 +97,7 @@ export default function HomePage() {
         "@type": "CollectionPage",
         "@id": absoluteUrl("/#webpage"),
         url: absoluteUrl("/"),
-        name: `${siteName} | Premium WPC Doors, Frames & Boards`,
+        name: `${siteName} | Best Quality WPC Doors, Frames & Boards by Eco Aashirwad`,
         description: siteDescription,
         inLanguage: "en-IN",
         isPartOf: {
@@ -190,7 +191,7 @@ export default function HomePage() {
             </Reveal>
           </div>
 
-            <Reveal delay={180} className="hero-proof-ledger mt-12 md:mt-24">
+        <Reveal delay={100} className="hero-proof-ledger mt-8 md:mt-16">
               {homeHero.proofPoints.map((point) => (
                 <div key={point.label} className="hero-proof-item">
                   <span>{point.label}</span>
@@ -225,7 +226,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="px-5 py-16 md:px-8 md:py-20 lg:px-10 bg-[var(--surface-panel)]">
+      <section className="px-5 py-10 md:px-8 md:py-16 lg:px-10 bg-[var(--surface-panel)]">
         <div className="mx-auto max-w-[1400px]">
           <Reveal>
             <SectionHeading
@@ -237,7 +238,7 @@ export default function HomePage() {
               {featuresBlock.map((feature, i) => (
                 <Reveal 
                   key={i} 
-                  delay={i * 100}
+                  delay={i * 70}
                   className="rounded-2xl border border-[var(--line-soft)] bg-[var(--surface-ground)] p-6 md:p-8"
                 >
                   <h3 className="font-display text-xl font-medium tracking-tight md:text-2xl">
@@ -253,7 +254,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="px-5 py-16 md:px-8 md:py-20 lg:px-10">
+      <section className="px-5 py-12 md:px-8 md:py-16 lg:px-10">
         <div className="mx-auto max-w-[1400px]">
           <Reveal className="range-header">
             <SectionHeading
@@ -263,13 +264,13 @@ export default function HomePage() {
             />
           </Reveal>
 
-          <div className="mt-16 grid gap-14">
+          <div className="mt-10 grid gap-8 sm:mt-12 md:gap-12">
             {productFamilies.map((family, index) => (
               <div
                 key={family.slug}
                 className={`product-showcase ${index % 2 === 1 ? "product-showcase-reverse" : ""}`}
               >
-                <Reveal delay={index * 120} className="product-showcase-copy">
+                <Reveal delay={index * 80} className="product-showcase-copy">
                   <p className="product-number">0{index + 1}</p>
                   <p className="eyebrow">{family.name}</p>
                   <h2 className="section-title range-product-title mt-4">{family.strap}</h2>
@@ -286,7 +287,7 @@ export default function HomePage() {
                   </div>
                 </Reveal>
 
-                <Reveal delay={index * 120 + 80} className={`product-stage product-stage-${family.slug}`}>
+                <Reveal delay={index * 80 + 60} className={`product-stage product-stage-${family.slug}`}>
                   <div className="product-stage-grid" />
                   <div className="product-stage-halo" />
                   <LuxuryFloat
@@ -301,6 +302,9 @@ export default function HomePage() {
               </div>
             ))}
           </div>
+          <div className="mt-8 px-1">
+            <ColorDisclaimer />
+          </div>
         </div>
       </section>
 
@@ -311,7 +315,7 @@ export default function HomePage() {
         body="Use the interactive map to locate the store, get directions, and verify the current showroom location before you visit."
       />
 
-      <section className="page-band px-5 py-16 md:px-8 md:py-20 lg:px-10">
+      <section className="page-band px-5 py-12 md:px-8 md:py-16 lg:px-10">
         <div className="mx-auto max-w-[1100px]">
           <Reveal className="callout-panel product-inquiry-panel final-cta-panel">
             <p className="eyebrow">Contact</p>

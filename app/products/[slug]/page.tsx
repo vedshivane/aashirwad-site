@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { ProductPage } from "@/components/product-page";
 import { productFamilies, productFamilyLookup } from "@/lib/content";
 import type { ProductSlug } from "@/lib/types";
+import { absoluteUrl, siteName } from "@/lib/site";
 
 interface ProductRouteProps {
   params: Promise<{
@@ -29,10 +30,36 @@ export async function generateMetadata({
   }
 
   const family = productFamilyLookup[slug];
+  const title = `${family.name} | ${siteName}`;
+  const description = `Best quality ${family.name.toLowerCase()} by Eco Aashirwad. ${family.summary}`;
 
   return {
     title: family.name,
-    description: family.summary,
+    description,
+    alternates: {
+      canonical: `/products/${slug}`,
+    },
+    openGraph: {
+      type: "website",
+      url: `/products/${slug}`,
+      siteName,
+      title,
+      description,
+      images: [
+        {
+          url: absoluteUrl("/images/home/collage.png"),
+          width: 1200,
+          height: 630,
+          alt: `${siteName} ${family.name.toLowerCase()} — best quality WPC`,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [absoluteUrl("/images/home/collage.png")],
+    },
   };
 }
 

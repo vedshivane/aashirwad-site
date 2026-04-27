@@ -27,6 +27,7 @@ export function LuxuryFloat({
   return (
     <motion.div
       className={className}
+      style={{ willChange: "transform" }}
       initial={reduceMotion ? false : { opacity: 0, transform: "translate3d(0, 20px, 0) scale(0.99)" }}
       animate={
         reduceMotion
@@ -45,7 +46,7 @@ export function LuxuryFloat({
       }
       transition={{
         opacity: {
-          duration: reduceMotion ? 0.01 : 0.9,
+          duration: reduceMotion ? 0.01 : 0.4,
           delay,
           ease: [0.22, 1, 0.36, 1],
         },
@@ -54,7 +55,7 @@ export function LuxuryFloat({
           delay,
           repeat: reduceMotion ? 0 : Number.POSITIVE_INFINITY,
           repeatType: "mirror",
-          ease: [0.4, 0, 0.2, 1],
+          ease: "easeInOut",
         },
       }}
       whileHover={reduceMotion ? undefined : { transform: "translate3d(0, -6px, 0) scale(1.012)" }}

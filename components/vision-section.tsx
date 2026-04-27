@@ -3,7 +3,7 @@ import { SectionHeading } from "@/components/section-heading";
 
 export function VisionSection() {
   return (
-    <section className="px-5 py-16 md:px-8 md:py-28 lg:px-10 bg-white">
+    <section className="px-5 py-12 md:px-8 md:py-20 lg:px-10 bg-white">
       <div className="mx-auto max-w-[1400px]">
         <Reveal>
           <SectionHeading

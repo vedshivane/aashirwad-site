@@ -4,10 +4,37 @@ import { LocationSection } from "@/components/location-section";
 import { Reveal } from "@/components/reveal";
 import { contactPanels } from "@/lib/content";
 import { CollabSection } from "@/components/collab-section";
+import { absoluteUrl, siteName } from "@/lib/site";
+
+const contactDescription = "Contact Eco Aashirwad for best-quality WPC doors, frames, and boards. Share your category, quantity, and size — we serve dealers, builders, and architects across South India.";
 
 export const metadata: Metadata = {
   title: "Contact",
-  description: "Contact Eco Aashirwad for WPC doors, frames, and boards.",
+  description: contactDescription,
+  alternates: {
+    canonical: "/contact",
+  },
+  openGraph: {
+    type: "website",
+    url: "/contact",
+    siteName,
+    title: `Contact | ${siteName}`,
+    description: contactDescription,
+    images: [
+      {
+        url: absoluteUrl("/images/home/collage.png"),
+        width: 1200,
+        height: 630,
+        alt: `${siteName} WPC doors, frames, and boards`,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `Contact | ${siteName}`,
+    description: contactDescription,
+    images: [absoluteUrl("/images/home/collage.png")],
+  },
 };
 
 export default function ContactPage() {
