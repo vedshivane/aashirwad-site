@@ -44,11 +44,15 @@ html {
 body {
   min-height: 100dvh;
   background:
-    radial-gradient(circle at 12% 10%, color-mix(in oklab, var(--accent-sandal) 22%, transparent) 0%, transparent 28%),
-    radial-gradient(circle at 88% 12%, color-mix(in oklab, var(--accent-clay) 11%, transparent) 0%, transparent 24%),
-    radial-gradient(circle at 50% 130%, color-mix(in oklab, var(--accent-umber) 10%, transparent) 0%, transparent 42%),
-    linear-gradient(135deg, rgba(255,255,255,0.82) 0%, rgba(255,255,255,0) 30%),
-    linear-gradient(180deg, var(--surface-cream) 0%, var(--surface-ground) 32%, color-mix(in oklab, var(--surface-depth) 70%, white) 100%);
+    /* Marble cloudiness — multiple elliptical mists */
+    radial-gradient(ellipse at 18% 8%,  color-mix(in oklab, var(--accent-sandal) 20%, transparent) 0%, transparent 32%),
+    radial-gradient(ellipse at 86% 16%, color-mix(in oklab, var(--accent-clay)   10%, transparent) 0%, transparent 28%),
+    radial-gradient(ellipse at 34% 54%, color-mix(in oklab, var(--surface-warm)  28%, transparent) 0%, transparent 26%),
+    radial-gradient(ellipse at 75% 84%, color-mix(in oklab, var(--accent-sandal)  9%, transparent) 0%, transparent 24%),
+    radial-gradient(ellipse at 50% 132%, color-mix(in oklab, var(--accent-umber)  8%, transparent) 0%, transparent 40%),
+    /* Marble slab base — bright warm-white graduating to a cool stone toe */
+    linear-gradient(152deg, rgba(255,255,255,0.94) 0%, rgba(255,255,255,0) 26%),
+    linear-gradient(180deg, var(--surface-cream) 0%, var(--surface-ground) 38%, color-mix(in oklab, var(--surface-depth) 64%, white) 100%);
   color: var(--ink-primary);
   font-family: var(--font-cabinet-grotesk), sans-serif;
   text-rendering: optimizeLegibility;
@@ -59,29 +63,16 @@ body::before {
   position: fixed;
   inset: 0;
   pointer-events: none;
-  opacity: 0.62;
+  opacity: 0.72;
   will-change: transform;
   background:
-    radial-gradient(circle at 16% 18%, rgba(255,255,255,0.86) 0, rgba(255,255,255,0.18) 18%, transparent 34%),
-    radial-gradient(circle at 82% 22%, color-mix(in oklab, var(--accent-sandal) 16%, white) 0, transparent 26%),
-    radial-gradient(circle at 50% 72%, color-mix(in oklab, var(--accent-umber) 11%, transparent) 0, transparent 34%),
-    linear-gradient(180deg, rgba(255,255,255,0.38), rgba(255,255,255,0) 26%),
-    conic-gradient(
-      from 176deg at 14% 24%,
-      color-mix(in oklab, var(--accent-red) 4%, transparent) 0deg 18deg,
-      transparent 18deg 36deg,
-      color-mix(in oklab, var(--accent-clay) 4%, transparent) 36deg 52deg,
-      transparent 50deg 360deg
-    ),
-    conic-gradient(
-      from 26deg at 84% 70%,
-      color-mix(in oklab, var(--accent-clay) 5%, transparent) 0deg 16deg,
-      transparent 16deg 34deg,
-      color-mix(in oklab, var(--accent-red) 4%, transparent) 34deg 50deg,
-      transparent 50deg 360deg
-    ),
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='600'%3E%3Cpath d='M-10,130 C70,105 140,180 250,155 C360,130 415,82 530,115 C610,140 648,192 810,168' fill='none' stroke='rgb(155,145,135)' stroke-opacity='.10' stroke-width='1.8'/%3E%3Cpath d='M-10,330 C100,305 200,375 310,342 C420,309 475,260 590,290 C665,308 695,345 810,322' fill='none' stroke='rgb(155,145,135)' stroke-opacity='.07' stroke-width='1.1'/%3E%3Cpath d='M-10,505 C95,480 195,548 310,514 C425,480 478,432 595,462 C668,480 700,512 810,490' fill='none' stroke='rgb(155,145,135)' stroke-opacity='.06' stroke-width='.85'/%3E%3Cpath d='M200,-10 C177,90 240,172 217,278 C194,384 143,432 167,542 C188,635 238,660 214,760' fill='none' stroke='rgb(155,145,135)' stroke-opacity='.06' stroke-width='1.0'/%3E%3Cpath d='M595,-10 C570,90 633,172 610,278 C587,384 535,432 559,542 C580,635 630,660 606,760' fill='none' stroke='rgb(155,145,135)' stroke-opacity='.05' stroke-width='.9'/%3E%3C/svg%3E");
-  background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%;
+    radial-gradient(ellipse at 16% 18%, rgba(255,255,255,0.88) 0, rgba(255,255,255,0.18) 18%, transparent 36%),
+    radial-gradient(ellipse at 82% 22%, color-mix(in oklab, var(--accent-sandal) 14%, white) 0, transparent 28%),
+    radial-gradient(ellipse at 42% 65%, color-mix(in oklab, var(--accent-umber) 9%, transparent) 0, transparent 32%),
+    linear-gradient(180deg, rgba(255,255,255,0.42), rgba(255,255,255,0) 28%),
+    /* Marble vein SVG — primary diagonal + secondary + cross veins with soft halos */
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='800'%3E%3C!-- primary vein halo --%3E%3Cpath d='M-20,175 C130,150 285,243 470,207 C655,171 718,111 920,157 C1080,191 1148,259 1220,233' fill='none' stroke='rgb(165,152,138)' stroke-opacity='.07' stroke-width='10'/%3E%3C!-- primary vein --%3E%3Cpath d='M-20,170 C130,145 285,238 470,202 C655,166 718,106 920,152 C1080,186 1148,254 1220,228' fill='none' stroke='rgb(148,136,122)' stroke-opacity='.19' stroke-width='4.2'/%3E%3C!-- branch left --%3E%3Cpath d='M255,225 C268,198 292,162 318,130 C340,102 358,72 365,-12' fill='none' stroke='rgb(146,134,120)' stroke-opacity='.13' stroke-width='1.9'/%3E%3C!-- branch center --%3E%3Cpath d='M705,160 C720,134 745,100 770,72 C792,46 808,18 815,-12' fill='none' stroke='rgb(144,132,118)' stroke-opacity='.11' stroke-width='1.5'/%3E%3C!-- micro branch --%3E%3Cpath d='M488,208 C500,190 514,168 528,150 C540,134 548,116 552,98' fill='none' stroke='rgb(142,130,116)' stroke-opacity='.08' stroke-width='1.1'/%3E%3C!-- secondary vein halo --%3E%3Cpath d='M-20,397 C148,371 308,465 508,427 C708,389 770,329 975,371 C1148,405 1208,459 1220,437' fill='none' stroke='rgb(155,143,128)' stroke-opacity='.05' stroke-width='7'/%3E%3C!-- secondary vein --%3E%3Cpath d='M-20,390 C148,364 308,458 508,420 C708,382 770,322 975,364 C1148,398 1208,452 1220,430' fill='none' stroke='rgb(146,134,120)' stroke-opacity='.14' stroke-width='2.6'/%3E%3C!-- hairline echo secondary --%3E%3Cpath d='M-20,382 C148,357 308,450 508,412 C708,374 770,316 975,356 C1148,390 1208,444 1220,422' fill='none' stroke='rgb(150,138,124)' stroke-opacity='.06' stroke-width='1.0'/%3E%3C!-- cross vein left halo --%3E%3Cpath d='M318,-15 C292,102 362,196 336,318 C310,440 252,493 278,620 C300,730 358,755 330,800' fill='none' stroke='rgb(155,143,128)' stroke-opacity='.05' stroke-width='6'/%3E%3C!-- cross vein left --%3E%3Cpath d='M310,-15 C284,102 354,196 328,318 C302,440 244,493 270,620 C292,730 350,755 322,800' fill='none' stroke='rgb(144,132,118)' stroke-opacity='.13' stroke-width='2.0'/%3E%3C!-- cross vein right --%3E%3Cpath d='M890,-15 C864,102 934,196 908,318 C882,440 824,493 850,620 C872,730 930,755 902,800' fill='none' stroke='rgb(143,131,116)' stroke-opacity='.10' stroke-width='1.5'/%3E%3C!-- lower vein --%3E%3Cpath d='M-20,600 C118,574 248,658 408,622 C568,586 624,534 824,572 C984,602 1048,642 1220,616' fill='none' stroke='rgb(141,129,115)' stroke-opacity='.11' stroke-width='1.8'/%3E%3C!-- center cross faint --%3E%3Cpath d='M685,-15 C658,108 728,205 702,330 C676,455 618,508 644,638 C666,748 726,772 698,800' fill='none' stroke='rgb(140,128,114)' stroke-opacity='.07' stroke-width='1.1'/%3E%3C!-- fine detail top --%3E%3Cpath d='M-20,282 C80,265 170,300 263,282 C356,264 400,240 490,258 C580,276 616,304 715,288' fill='none' stroke='rgb(138,126,112)' stroke-opacity='.09' stroke-width='0.95'/%3E%3C!-- fine detail bottom --%3E%3Cpath d='M782,566 C892,545 1000,582 1132,558 C1190,544 1212,524 1220,538' fill='none' stroke='rgb(138,126,112)' stroke-opacity='.08' stroke-width='0.85'/%3E%3C!-- broad misty cloud vein --%3E%3Cpath d='M-20,490 C200,468 420,520 660,494 C900,468 1020,446 1220,472' fill='none' stroke='rgb(148,136,122)' stroke-opacity='.04' stroke-width='18'/%3E%3C/svg%3E");
+  background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%;
   z-index: -2;
   animation: ambient-drift 32s ease-in-out infinite alternate;
 }
@@ -92,18 +83,12 @@ body::after {
   inset: 0;
   pointer-events: none;
   z-index: -1;
-  opacity: 0.42;
+  opacity: 0.48;
   background:
     radial-gradient(circle at 20% 18%, rgba(255,255,255,0.7), transparent 24%),
     radial-gradient(circle at 78% 78%, rgba(255,255,255,0.42), transparent 22%),
-    linear-gradient(115deg, rgba(255,255,255,0.08), transparent 34%, rgba(120,79,55,0.04) 66%, transparent 100%),
-    repeating-linear-gradient(
-      12deg,
-      rgba(95, 63, 46, 0.03) 0,
-      rgba(95, 63, 46, 0.03) 2px,
-      transparent 2px,
-      transparent 26px
-    );
+    radial-gradient(ellipse at 55% 48%, rgba(240,234,226,0.28), transparent 60%),
+    linear-gradient(115deg, rgba(255,255,255,0.10), transparent 34%, rgba(120,79,55,0.04) 66%, transparent 100%);
   mix-blend-mode: soft-light;
   mask-image: radial-gradient(circle at 50% 50%, black, transparent 92%);
 }
