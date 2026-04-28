@@ -173,7 +173,7 @@ export default function HomePage() {
                 <div className="hero-collage-shell">
                   <div className="hero-collage-card">
                     <Image
-                      src="/images/home/collage.png"
+                      src="/images/home/collage.jpeg"
                       alt="Eco Aashirwad collage showing doors, frames, boards, and branded product packaging."
                       fill
                       priority

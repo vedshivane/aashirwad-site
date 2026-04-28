@@ -44,11 +44,10 @@ html {
 body {
   min-height: 100dvh;
   background:
-    radial-gradient(circle at 12% 10%, color-mix(in oklab, var(--accent-sandal) 22%, transparent) 0%, transparent 28%),
-    radial-gradient(circle at 88% 12%, color-mix(in oklab, var(--accent-clay) 11%, transparent) 0%, transparent 24%),
-    radial-gradient(circle at 50% 130%, color-mix(in oklab, var(--accent-umber) 10%, transparent) 0%, transparent 42%),
-    linear-gradient(135deg, rgba(255,255,255,0.82) 0%, rgba(255,255,255,0) 30%),
-    linear-gradient(180deg, var(--surface-cream) 0%, var(--surface-ground) 32%, color-mix(in oklab, var(--surface-depth) 70%, white) 100%);
+    radial-gradient(ellipse at 10% 0%, color-mix(in oklab, var(--accent-sandal) 14%, transparent) 0%, transparent 36%),
+    radial-gradient(ellipse at 90% 8%, color-mix(in oklab, var(--accent-clay) 8%, transparent) 0%, transparent 30%),
+    linear-gradient(160deg, rgba(255,255,255,0.78) 0%, rgba(255,255,255,0) 22%),
+    linear-gradient(180deg, oklch(0.999 0.002 55) 0%, var(--surface-ground) 30%, color-mix(in oklab, var(--surface-depth) 55%, white) 100%);
   color: var(--ink-primary);
   font-family: var(--font-cabinet-grotesk), sans-serif;
   text-rendering: optimizeLegibility;
@@ -59,29 +58,14 @@ body::before {
   position: fixed;
   inset: 0;
   pointer-events: none;
-  opacity: 0.62;
+  opacity: 0.75;
   will-change: transform;
   background:
-    radial-gradient(circle at 16% 18%, rgba(255,255,255,0.86) 0, rgba(255,255,255,0.18) 18%, transparent 34%),
-    radial-gradient(circle at 82% 22%, color-mix(in oklab, var(--accent-sandal) 16%, white) 0, transparent 26%),
-    radial-gradient(circle at 50% 72%, color-mix(in oklab, var(--accent-umber) 11%, transparent) 0, transparent 34%),
-    linear-gradient(180deg, rgba(255,255,255,0.38), rgba(255,255,255,0) 26%),
-    conic-gradient(
-      from 176deg at 14% 24%,
-      color-mix(in oklab, var(--accent-red) 4%, transparent) 0deg 18deg,
-      transparent 18deg 36deg,
-      color-mix(in oklab, var(--accent-clay) 4%, transparent) 36deg 52deg,
-      transparent 50deg 360deg
-    ),
-    conic-gradient(
-      from 26deg at 84% 70%,
-      color-mix(in oklab, var(--accent-clay) 5%, transparent) 0deg 16deg,
-      transparent 16deg 34deg,
-      color-mix(in oklab, var(--accent-red) 4%, transparent) 34deg 50deg,
-      transparent 50deg 360deg
-    ),
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='600'%3E%3Cpath d='M-10,130 C70,105 140,180 250,155 C360,130 415,82 530,115 C610,140 648,192 810,168' fill='none' stroke='rgb(155,145,135)' stroke-opacity='.10' stroke-width='1.8'/%3E%3Cpath d='M-10,330 C100,305 200,375 310,342 C420,309 475,260 590,290 C665,308 695,345 810,322' fill='none' stroke='rgb(155,145,135)' stroke-opacity='.07' stroke-width='1.1'/%3E%3Cpath d='M-10,505 C95,480 195,548 310,514 C425,480 478,432 595,462 C668,480 700,512 810,490' fill='none' stroke='rgb(155,145,135)' stroke-opacity='.06' stroke-width='.85'/%3E%3Cpath d='M200,-10 C177,90 240,172 217,278 C194,384 143,432 167,542 C188,635 238,660 214,760' fill='none' stroke='rgb(155,145,135)' stroke-opacity='.06' stroke-width='1.0'/%3E%3Cpath d='M595,-10 C570,90 633,172 610,278 C587,384 535,432 559,542 C580,635 630,660 606,760' fill='none' stroke='rgb(155,145,135)' stroke-opacity='.05' stroke-width='.9'/%3E%3C/svg%3E");
-  background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%;
+    radial-gradient(circle at 18% 14%, rgba(255,255,255,0.82) 0, rgba(255,255,255,0.16) 16%, transparent 30%),
+    radial-gradient(circle at 80% 22%, color-mix(in oklab, var(--accent-sandal) 13%, white) 0, transparent 22%),
+    linear-gradient(158deg, rgba(255,255,255,0.30), rgba(255,255,255,0) 22%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1440' height='900'%3E%3Cpath d='M-10,120 C120,100 250,195 400,168 C530,143 610,82 760,118 C880,148 940,228 1090,202 C1200,182 1320,152 1460,172' fill='none' stroke='rgb(130,115,100)' stroke-opacity='.20' stroke-width='4.0'/%3E%3Cpath d='M400,168 C422,224 448,298 478,378 C508,458 548,524 580,608' fill='none' stroke='rgb(130,115,100)' stroke-opacity='.13' stroke-width='1.9'/%3E%3Cpath d='M-10,420 C140,392 300,484 470,450 C618,418 700,348 870,382 C992,408 1062,468 1222,448 C1332,432 1402,418 1460,428' fill='none' stroke='rgb(138,122,108)' stroke-opacity='.16' stroke-width='2.8'/%3E%3Cpath d='M870,382 C892,328 910,274 920,222 C930,170 932,118 942,66' fill='none' stroke='rgb(138,122,108)' stroke-opacity='.10' stroke-width='1.3'/%3E%3Cpath d='M-10,678 C160,650 340,740 520,706 C690,672 774,606 960,638 C1082,660 1162,708 1322,690 C1402,680 1442,676 1460,680' fill='none' stroke='rgb(128,112,98)' stroke-opacity='.13' stroke-width='2.0'/%3E%3Cpath d='M282,-10 C260,110 320,214 297,334 C274,454 220,514 244,636 C266,746 316,784 292,900' fill='none' stroke='rgb(138,122,108)' stroke-opacity='.10' stroke-width='1.1'/%3E%3Cpath d='M1062,-10 C1038,110 1100,214 1078,334 C1056,454 1000,514 1024,636 C1046,746 1098,784 1074,900' fill='none' stroke='rgb(128,112,98)' stroke-opacity='.08' stroke-width='0.9'/%3E%3Cpath d='M-10,252 C82,244 142,280 242,264 C320,252 376,228 472,246' fill='none' stroke='rgb(148,132,118)' stroke-opacity='.09' stroke-width='0.9'/%3E%3Cpath d='M678,900 C698,768 734,678 754,588 C774,498 778,432 810,360' fill='none' stroke='rgb(138,122,108)' stroke-opacity='.08' stroke-width='0.9'/%3E%3Cpath d='M1162,548 C1182,488 1228,444 1244,388 C1260,332 1258,282 1278,232' fill='none' stroke='rgb(148,132,118)' stroke-opacity='.08' stroke-width='0.8'/%3E%3C/svg%3E");
+  background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%;
   z-index: -2;
   animation: ambient-drift 32s ease-in-out infinite alternate;
 }
@@ -92,20 +76,12 @@ body::after {
   inset: 0;
   pointer-events: none;
   z-index: -1;
-  opacity: 0.42;
+  opacity: 0.55;
   background:
-    radial-gradient(circle at 20% 18%, rgba(255,255,255,0.7), transparent 24%),
-    radial-gradient(circle at 78% 78%, rgba(255,255,255,0.42), transparent 22%),
-    linear-gradient(115deg, rgba(255,255,255,0.08), transparent 34%, rgba(120,79,55,0.04) 66%, transparent 100%),
-    repeating-linear-gradient(
-      12deg,
-      rgba(95, 63, 46, 0.03) 0,
-      rgba(95, 63, 46, 0.03) 2px,
-      transparent 2px,
-      transparent 26px
-    );
+    radial-gradient(ellipse at 28% 12%, rgba(255,255,255,0.88), transparent 30%),
+    radial-gradient(ellipse at 72% 82%, rgba(255,255,255,0.45), transparent 26%),
+    linear-gradient(128deg, rgba(255,255,255,0.14), transparent 38%, rgba(110,85,65,0.04) 68%, transparent 100%);
   mix-blend-mode: soft-light;
-  mask-image: radial-gradient(circle at 50% 50%, black, transparent 92%);
 }
 
 a {

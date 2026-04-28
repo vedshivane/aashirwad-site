@@ -13,7 +13,7 @@ export const siteAlternateNames = ["Eco Aashirwad", "ECOAashirwad"];
 export const siteDescription =
   "Best quality WPC doors, frames, and boards by Eco Aashirwad — premium strength, density, and resin-bonded construction.";
 export const siteLocale = "en_IN";
-export const heroImagePath = "/images/home/collage.png";
+export const heroImagePath = "/images/home/collage.jpeg";
 export const businessAddress =
   "shree Balaji interior concepts, Aashirwad WPC, 14-1-334, behind prakash theatre, Aghapura, Mangalhat, Hyderabad, Telangana 500001";
 export const businessPhone = "+91 93987 56407";
