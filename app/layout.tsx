@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import Script from "next/script";
 
+import { MarbleBackground } from "@/components/MarbleBackground";
 import { MotionProvider } from "@/components/motion-provider";
 import { SiteShell } from "@/components/site-shell";
 import { absoluteUrl, siteDescription, siteLocale, siteName, siteUrl } from "@/lib/site";
@@ -122,6 +123,7 @@ export default function RootLayout({
             </Script>
           </>
         )}
+        <MarbleBackground />
         <MotionProvider>
           <SiteShell>{children}</SiteShell>
         </MotionProvider>

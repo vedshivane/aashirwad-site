@@ -66,32 +66,15 @@ export function CncDoorsSection() {
       <div className="mx-auto max-w-[1400px]">
         <Reveal>
           {/* Header */}
-          <div className="flex flex-wrap items-end justify-between gap-6">
-            <div>
-              <p className="eyebrow">CNC Doors</p>
-              <h2 className="section-title mt-3 max-w-[14ch]">
-                Precision CNC routed designs.
-              </h2>
-              <p className="mt-4 max-w-[38rem] text-[1.08rem] leading-[1.88] text-[var(--ink-muted)]">
-                Decorative CNC moulded door shutters available in ivory and grey. Each design is
-                computer-routed for clean, consistent panel patterns.
-              </p>
-            </div>
-
-            {/* PDF download */}
-            <a
-              href="/cnc-door-catalogue.pdf"
-              download="EcoAashirwad-CNC-Door-Catalogue.pdf"
-              className="group inline-flex shrink-0 items-center gap-3 rounded-2xl border border-[var(--line-strong)] bg-[color-mix(in_oklab,var(--surface-panel)_88%,white)] px-5 py-3.5 text-[0.9rem] font-semibold text-[var(--ink-strong)] shadow-[inset_0_1px_0_rgba(255,255,255,0.82),var(--shadow-soft)] transition-all hover:-translate-y-[2px] hover:border-[color-mix(in_oklab,var(--accent-red)_22%,white)]"
-            >
-              <DownloadIcon />
-              <span className="leading-tight">
-                Download CNC Catalogue
-                <span className="ml-2 text-[0.72rem] font-bold uppercase tracking-[0.2em] text-[var(--ink-subtle)]">
-                  PDF
-                </span>
-              </span>
-            </a>
+          <div>
+            <p className="eyebrow">CNC Doors</p>
+            <h2 className="section-title mt-3 max-w-[14ch]">
+              Precision CNC routed designs.
+            </h2>
+            <p className="mt-4 max-w-[38rem] text-[1.08rem] leading-[1.88] text-[var(--ink-muted)]">
+              Decorative CNC moulded door shutters available in ivory and grey. Each design is
+              computer-routed for clean, consistent panel patterns.
+            </p>
           </div>
         </Reveal>
 
@@ -234,6 +217,24 @@ export function CncDoorsSection() {
           </div>
 
           <ColorDisclaimer className="mt-6" />
+
+          {/* Prominent PDF download CTA */}
+          <div className="mt-8 flex justify-center">
+            <a
+              href="/cnc-door-catalogue.pdf"
+              download="EcoAashirwad-CNC-Door-Catalogue.pdf"
+              className="group inline-flex items-center gap-3 rounded-2xl bg-[var(--accent-red)] px-7 py-4 text-[1rem] font-bold shadow-[0_4px_24px_-4px_color-mix(in_oklab,var(--accent-red)_52%,transparent)] transition-all hover:-translate-y-[2px] hover:bg-[var(--accent-red-deep)] hover:shadow-[0_8px_32px_-4px_color-mix(in_oklab,var(--accent-red)_60%,transparent)]"
+              style={{ color: "white" }}
+            >
+              <DownloadIcon />
+              <span className="leading-tight">
+                Download CNC Door Catalogue
+                <span className="ml-2 text-[0.72rem] font-extrabold uppercase tracking-[0.2em]" style={{ color: "rgba(255,255,255,0.7)" }}>
+                  PDF
+                </span>
+              </span>
+            </a>
+          </div>
         </Reveal>
       </div>
     </section>
