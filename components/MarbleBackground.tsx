@@ -84,36 +84,39 @@ const fragmentShader = /* glsl */ `
     // Very slow drift — imperceptible in a single glance, visible over time
     float t = uTime * 0.016;
 
-    // Scale UV down significantly — creates large, soft blobs, never tight
-    // stripe-like patterns
-    vec2 uv = vUv * aspect * 0.46;
+    // UV scale — broad soft blobs, never tight stripe patterns
+    vec2 uv = vUv * aspect * 0.70;
 
-    // Gentle mouse shift (desktop only; stays near 0 on touch)
-    vec2 shift = uMouse * 0.055;
+    // Mouse shift (desktop only; stays near 0 on touch)
+    vec2 shift = uMouse * 0.10;
 
     // Two independent cloud fields blended together
     float n1 = softCloud(uv + shift + t);
-    float n2 = softCloud(uv * 1.28 + shift * 0.6 + vec2(4.31, 2.17) + t * 0.74);
+    float n2 = softCloud(uv * 1.40 + shift * 0.55 + vec2(4.31, 2.17) + t * 0.74);
 
     // Smooth blend of the two fields
     float f = mix(n1, n2, 0.44);
 
-    // Soft S-curve compression → removes any remaining sharp edges
-    f = smoothstep(0.28, 0.72, f);
+    // Wide S-curve — maximises visible tonal range without hard edges
+    f = smoothstep(0.14, 0.86, f);
 
-    // Tight colour range: near-white cream to soft warm blush (~3% contrast)
-    vec3 base = vec3(0.991, 0.982, 0.974); // near-white
-    vec3 warm = vec3(0.964, 0.948, 0.932); // warm cream blush
+    // Three-stop colour ramp — cream white → warm sandal → warm terracotta stone
+    vec3 col0 = vec3(0.998, 0.994, 0.990); // near-white highlight
+    vec3 col1 = vec3(0.942, 0.910, 0.878); // warm sandal mid (~6% darker)
+    vec3 col2 = vec3(0.866, 0.818, 0.768); // warm terracotta stone deep (~13% darker)
 
-    vec3 col = mix(base, warm, f * 0.72);
+    float s1 = smoothstep(0.0, 0.52, f);
+    float s2 = smoothstep(0.38, 1.0, f);
+    vec3 col = mix(col0, col1, s1);
+    col = mix(col, col2, s2 * 0.72);
 
-    // Single broad soft gloss highlight (no banding)
-    float gloss = smoothstep(0.52, 0.78, f);
-    col = mix(col, vec3(1.0, 0.999, 0.997), gloss * 0.06);
+    // Broad soft gloss on lighter zones (no sharp banding)
+    float gloss = smoothstep(0.62, 0.92, f);
+    col = mix(col, vec3(1.0, 0.999, 0.997), gloss * 0.09);
 
-    // Very gentle vignette to anchor the centre
+    // Moderate vignette to frame the surface
     vec2 vig = vUv - 0.5;
-    col *= 1.0 - dot(vig, vig) * 0.22;
+    col *= 1.0 - dot(vig, vig) * 0.32;
 
     gl_FragColor = vec4(col, 1.0);
   }
