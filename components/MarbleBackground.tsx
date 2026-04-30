@@ -3,14 +3,15 @@
 /**
  * MarbleBackground
  *
- * A GPU-accelerated, interactive marble texture rendered as a full-viewport
+ * A GPU-accelerated, subtle marble-finish background rendered as a full-viewport
  * WebGL canvas that sits behind all page content.
  *
  * Features:
- * - Organic veins via Fractional Brownian Motion (FBM) noise in GLSL
- * - Warm marble colour palette matching the site design tokens
- * - Infinite, looping time-based animation (slow drift)
- * - Subtle mouse/touch parallax warp on desktop
+ * - Smooth, grain-free surface — no veins, no hard lines
+ * - Only the faintest tonal variation (polished Calacatta look)
+ * - Warm cream palette matching the site design tokens
+ * - Infinite, looping time-based animation (very slow drift)
+ * - Gentle mouse/touch parallax shift on desktop
  * - pointer-events: none so it never interferes with UI interactions
  * - Mounted once in app/layout.tsx to avoid flicker on route changes
  */
@@ -32,16 +33,16 @@ const vertexShader = /* glsl */ `
 `;
 
 /**
- * Marble fragment shader.
+ * Marble fragment shader — smooth, line-free polished-stone finish.
  *
  * Technique:
- *  1. Build a multi-octave value-noise FBM field (warp-on-warp gives
- *     organic swirling veins).
- *  2. Feed the warped UV into a turbulence function to produce vein edges.
- *  3. Combine with a secondary low-frequency warp driven by mouse position
- *     for the interactive parallax feel.
- *  4. Mix warm marble colours (cream, warm white, veined stone).
- *  5. Add specular highlight bands for a polished 3-D look.
+ *  1. Low-scale, low-octave FBM produces gentle cloud-like tonal blobs
+ *     (no sin() folds so there are zero stripe / arc artefacts).
+ *  2. Two FBM fields are smoothly blended for natural variation.
+ *  3. Colours are kept extremely close together (< 4 % difference) so the
+ *     effect reads as a barely-perceptible tonal shift, not a pattern.
+ *  4. A single broad gloss highlight is added (not a sharp band).
+ *  5. Mouse position shifts the field very slightly for subtle life.
  */
 const fragmentShader = /* glsl */ `
   uniform float uTime;
@@ -50,89 +51,69 @@ const fragmentShader = /* glsl */ `
 
   varying vec2 vUv;
 
-  // ---- Noise primitives -----------------------------------------------
-  // Smooth value noise
+  // ---- Smooth value noise (quintic falloff) ----------------------------
   float noise(vec2 p) {
     vec2 i = floor(p);
     vec2 f = fract(p);
-    vec2 u = f * f * (3.0 - 2.0 * f);
+    // Quintic interpolation for extra smoothness
+    vec2 u = f * f * f * (f * (f * 6.0 - 15.0) + 10.0);
 
-    float a = fract(sin(dot(i + vec2(0.0,0.0), vec2(127.1,311.7))) * 43758.5453);
-    float b = fract(sin(dot(i + vec2(1.0,0.0), vec2(127.1,311.7))) * 43758.5453);
-    float c = fract(sin(dot(i + vec2(0.0,1.0), vec2(127.1,311.7))) * 43758.5453);
-    float d = fract(sin(dot(i + vec2(1.0,1.0), vec2(127.1,311.7))) * 43758.5453);
+    float a = fract(sin(dot(i + vec2(0.0, 0.0), vec2(127.1, 311.7))) * 43758.5453);
+    float b = fract(sin(dot(i + vec2(1.0, 0.0), vec2(127.1, 311.7))) * 43758.5453);
+    float c = fract(sin(dot(i + vec2(0.0, 1.0), vec2(127.1, 311.7))) * 43758.5453);
+    float d = fract(sin(dot(i + vec2(1.0, 1.0), vec2(127.1, 311.7))) * 43758.5453);
 
     return mix(mix(a, b, u.x), mix(c, d, u.x), u.y);
   }
 
-  // Fractional Brownian Motion - layered noise octaves
-  float fbm(vec2 p) {
-    float v = 0.0;
+  // Low-frequency smooth cloud — 4 octaves, gentle rotation, no hard folds
+  float softCloud(vec2 p) {
+    float v   = 0.0;
     float amp = 0.5;
-    vec2 shift = vec2(100.0);
-    mat2 rot = mat2(cos(0.5), sin(0.5), -sin(0.5), cos(0.5));
-    for (int i = 0; i < 6; i++) {
+    mat2  rot = mat2(0.8660, 0.5, -0.5, 0.8660); // 30-degree rotation
+    for (int i = 0; i < 4; i++) {
       v   += amp * noise(p);
-      p    = rot * p * 2.0 + shift;
-      amp *= 0.5;
+      p    = rot * p * 1.82;
+      amp *= 0.54;
     }
     return v;
   }
 
-  // ---- Marble colours (warm cream / stone palette) ----------------------
-  // These values echo the site design tokens converted to linear RGB.
-  vec3 marbleColor(float t) {
-    vec3 col0 = vec3(0.982, 0.963, 0.942);   // warm white cream
-    vec3 col1 = vec3(0.916, 0.882, 0.845);   // warm stone / sandal
-    vec3 col2 = vec3(0.780, 0.720, 0.645);   // soft warm taupe / umber
-    vec3 col3 = vec3(0.830, 0.730, 0.650);   // subtle russet clay accent
-
-    float s  = smoothstep(0.0,  0.45, t);
-    float s2 = smoothstep(0.45, 0.80, t);
-    float s3 = smoothstep(0.80, 1.0,  t);
-
-    vec3 c = mix(col0, col1, s);
-    c = mix(c, col2, s2 * 0.7);
-    c = mix(c, col3, s3 * 0.35);
-    return c;
-  }
-
   void main() {
     vec2 aspect = vec2(uResolution.x / uResolution.y, 1.0);
-    float t = uTime * 0.042;
+    // Very slow drift — imperceptible in a single glance, visible over time
+    float t = uTime * 0.016;
 
-    vec2 uv = vUv * aspect;
+    // Scale UV down significantly — creates large, soft blobs, never tight
+    // stripe-like patterns
+    vec2 uv = vUv * aspect * 0.46;
 
-    // Domain warp pass 1 (large-scale swirl)
-    vec2 q;
-    q.x = fbm(uv + t);
-    q.y = fbm(uv + vec2(1.0) + t * 0.9);
+    // Gentle mouse shift (desktop only; stays near 0 on touch)
+    vec2 shift = uMouse * 0.055;
 
-    // Domain warp pass 2 (medium vein structure)
-    vec2 r;
-    r.x = fbm(uv + 4.0 * q + vec2(1.7, 9.2) + 0.15 * t);
-    r.y = fbm(uv + 4.0 * q + vec2(8.3, 2.8) + 0.126 * t);
+    // Two independent cloud fields blended together
+    float n1 = softCloud(uv + shift + t);
+    float n2 = softCloud(uv * 1.28 + shift * 0.6 + vec2(4.31, 2.17) + t * 0.74);
 
-    // Mouse interactive warp (subtle, desktop only)
-    r += uMouse * 0.18;
+    // Smooth blend of the two fields
+    float f = mix(n1, n2, 0.44);
 
-    // Turbulence / vein function
-    float f = fbm(uv + 3.6 * r);
+    // Soft S-curve compression → removes any remaining sharp edges
+    f = smoothstep(0.28, 0.72, f);
 
-    float marble = sin(uv.x * 3.8 + 6.0 * f) * 0.5 + 0.5;
-    marble = mix(marble, sin(uv.x * 2.2 + 5.0 * f + t * 0.3) * 0.5 + 0.5, 0.38);
-    marble = pow(marble, 1.4);
+    // Tight colour range: near-white cream to soft warm blush (~3% contrast)
+    vec3 base = vec3(0.991, 0.982, 0.974); // near-white
+    vec3 warm = vec3(0.964, 0.948, 0.932); // warm cream blush
 
-    vec3 col = marbleColor(marble);
+    vec3 col = mix(base, warm, f * 0.72);
 
-    // Specular highlight bands (polished surface)
-    float spec = smoothstep(0.60, 0.66, marble) * 0.22
-               + smoothstep(0.35, 0.38, marble) * 0.10;
-    col += spec * vec3(1.0, 0.99, 0.97);
+    // Single broad soft gloss highlight (no banding)
+    float gloss = smoothstep(0.52, 0.78, f);
+    col = mix(col, vec3(1.0, 0.999, 0.997), gloss * 0.06);
 
-    // Subtle vignette
+    // Very gentle vignette to anchor the centre
     vec2 vig = vUv - 0.5;
-    col *= 1.0 - dot(vig, vig) * 0.38;
+    col *= 1.0 - dot(vig, vig) * 0.22;
 
     gl_FragColor = vec4(col, 1.0);
   }
@@ -158,7 +139,7 @@ function MarblePlane() {
     matRef.current.uniforms["uTime"].value = clock.elapsedTime;
   });
 
-  // Mouse/touch tracking for interactive parallax warp (runs after render)
+  // Mouse/touch tracking for gentle parallax shift (runs after render)
   useEffect(() => {
     let isTouch = false;
     const onTouchStart = () => { isTouch = true; };
@@ -205,8 +186,8 @@ function MarblePlane() {
  * MarbleBackground
  *
  * Drop this once in app/layout.tsx (inside <body>, before other children).
- * It renders a fixed, full-viewport WebGL canvas that simulates polished
- * marble with animated veins and mouse-driven parallax.
+ * It renders a fixed, full-viewport WebGL canvas that gives a smooth,
+ * line-free polished-marble finish with extremely subtle tonal variation.
  */
 export function MarbleBackground() {
   const containerStyle: React.CSSProperties = {
@@ -221,7 +202,7 @@ export function MarbleBackground() {
     <div style={containerStyle} aria-hidden="true">
       <Canvas
         gl={{
-          antialias: false,          // saves GPU; marble is smooth by nature
+          antialias: false,
           alpha: false,
           powerPreference: "default",
         }}
