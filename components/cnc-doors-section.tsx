@@ -223,12 +223,13 @@ export function CncDoorsSection() {
             <a
               href="/cnc-door-catalogue.pdf"
               download="EcoAashirwad-CNC-Door-Catalogue.pdf"
-              className="group inline-flex items-center gap-3 rounded-2xl bg-[var(--accent-red)] px-7 py-4 text-[1rem] font-bold text-white shadow-[0_4px_24px_-4px_color-mix(in_oklab,var(--accent-red)_52%,transparent)] transition-all hover:-translate-y-[2px] hover:bg-[var(--accent-red-deep)] hover:shadow-[0_8px_32px_-4px_color-mix(in_oklab,var(--accent-red)_60%,transparent)]"
+              className="group inline-flex items-center gap-3 rounded-2xl bg-[var(--accent-red)] px-7 py-4 text-[1rem] font-bold shadow-[0_4px_24px_-4px_color-mix(in_oklab,var(--accent-red)_52%,transparent)] transition-all hover:-translate-y-[2px] hover:bg-[var(--accent-red-deep)] hover:shadow-[0_8px_32px_-4px_color-mix(in_oklab,var(--accent-red)_60%,transparent)]"
+              style={{ color: "white" }}
             >
               <DownloadIcon />
               <span className="leading-tight">
                 Download CNC Door Catalogue
-                <span className="ml-2 text-[0.72rem] font-extrabold uppercase tracking-[0.2em] text-white/70">
+                <span className="ml-2 text-[0.72rem] font-extrabold uppercase tracking-[0.2em]" style={{ color: "rgba(255,255,255,0.7)" }}>
                   PDF
                 </span>
               </span>
