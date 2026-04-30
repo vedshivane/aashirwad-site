@@ -43,12 +43,7 @@ html {
 
 body {
   min-height: 100dvh;
-  background:
-    radial-gradient(circle at 12% 10%, color-mix(in oklab, var(--accent-sandal) 22%, transparent) 0%, transparent 28%),
-    radial-gradient(circle at 88% 12%, color-mix(in oklab, var(--accent-clay) 11%, transparent) 0%, transparent 24%),
-    radial-gradient(circle at 50% 130%, color-mix(in oklab, var(--accent-umber) 10%, transparent) 0%, transparent 42%),
-    linear-gradient(135deg, rgba(255,255,255,0.82) 0%, rgba(255,255,255,0) 30%),
-    linear-gradient(180deg, var(--surface-cream) 0%, var(--surface-ground) 32%, color-mix(in oklab, var(--surface-depth) 70%, white) 100%);
+  background: transparent;
   color: var(--ink-primary);
   font-family: var(--font-cabinet-grotesk), sans-serif;
   text-rendering: optimizeLegibility;
@@ -59,29 +54,12 @@ body::before {
   position: fixed;
   inset: 0;
   pointer-events: none;
-  opacity: 0.62;
+  opacity: 0.38;
   will-change: transform;
   background:
-    radial-gradient(circle at 16% 18%, rgba(255,255,255,0.86) 0, rgba(255,255,255,0.18) 18%, transparent 34%),
-    radial-gradient(circle at 82% 22%, color-mix(in oklab, var(--accent-sandal) 16%, white) 0, transparent 26%),
-    radial-gradient(circle at 50% 72%, color-mix(in oklab, var(--accent-umber) 11%, transparent) 0, transparent 34%),
-    linear-gradient(180deg, rgba(255,255,255,0.38), rgba(255,255,255,0) 26%),
-    conic-gradient(
-      from 176deg at 14% 24%,
-      color-mix(in oklab, var(--accent-red) 4%, transparent) 0deg 18deg,
-      transparent 18deg 36deg,
-      color-mix(in oklab, var(--accent-clay) 4%, transparent) 36deg 52deg,
-      transparent 50deg 360deg
-    ),
-    conic-gradient(
-      from 26deg at 84% 70%,
-      color-mix(in oklab, var(--accent-clay) 5%, transparent) 0deg 16deg,
-      transparent 16deg 34deg,
-      color-mix(in oklab, var(--accent-red) 4%, transparent) 34deg 50deg,
-      transparent 50deg 360deg
-    ),
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='600'%3E%3Cpath d='M-10,130 C70,105 140,180 250,155 C360,130 415,82 530,115 C610,140 648,192 810,168' fill='none' stroke='rgb(155,145,135)' stroke-opacity='.10' stroke-width='1.8'/%3E%3Cpath d='M-10,330 C100,305 200,375 310,342 C420,309 475,260 590,290 C665,308 695,345 810,322' fill='none' stroke='rgb(155,145,135)' stroke-opacity='.07' stroke-width='1.1'/%3E%3Cpath d='M-10,505 C95,480 195,548 310,514 C425,480 478,432 595,462 C668,480 700,512 810,490' fill='none' stroke='rgb(155,145,135)' stroke-opacity='.06' stroke-width='.85'/%3E%3Cpath d='M200,-10 C177,90 240,172 217,278 C194,384 143,432 167,542 C188,635 238,660 214,760' fill='none' stroke='rgb(155,145,135)' stroke-opacity='.06' stroke-width='1.0'/%3E%3Cpath d='M595,-10 C570,90 633,172 610,278 C587,384 535,432 559,542 C580,635 630,660 606,760' fill='none' stroke='rgb(155,145,135)' stroke-opacity='.05' stroke-width='.9'/%3E%3C/svg%3E");
-  background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%;
+    radial-gradient(circle at 16% 18%, rgba(255,255,255,0.72) 0, rgba(255,255,255,0.12) 18%, transparent 34%),
+    radial-gradient(circle at 82% 22%, color-mix(in oklab, var(--accent-sandal) 10%, white) 0, transparent 26%),
+    linear-gradient(180deg, rgba(255,255,255,0.28), rgba(255,255,255,0) 26%);
   z-index: -2;
   animation: ambient-drift 32s ease-in-out infinite alternate;
 }
