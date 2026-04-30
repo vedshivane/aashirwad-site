@@ -100,21 +100,21 @@ const fragmentShader = /* glsl */ `
     // Wide S-curve — maximises visible tonal range without hard edges
     f = smoothstep(0.14, 0.86, f);
 
-    // Three-stop warm beige ramp — keeps the same warm cream/blush character
-    // as the original palette but spread wider for visible contrast.
-    // All stops keep R >> G >> B so the surface reads as warm beige, not grey.
-    vec3 col0 = vec3(0.998, 0.990, 0.980); // near-white warm ivory
-    vec3 col1 = vec3(0.958, 0.932, 0.902); // warm beige cream (original blush territory)
-    vec3 col2 = vec3(0.904, 0.864, 0.818); // deeper warm sand beige
+    // Three-stop cool off-white ramp matching the polished plaster reference.
+    // Palette is near-neutral with just a trace of warmth so it reads as
+    // clean white marble rather than beige or grey.
+    vec3 col0 = vec3(0.992, 0.990, 0.986); // near-pure white
+    vec3 col1 = vec3(0.936, 0.933, 0.924); // soft cool off-white
+    vec3 col2 = vec3(0.880, 0.876, 0.864); // light grey with faint warmth
 
     float s1 = smoothstep(0.0, 0.52, f);
     float s2 = smoothstep(0.38, 1.0, f);
     vec3 col = mix(col0, col1, s1);
-    col = mix(col, col2, s2 * 0.62);
+    col = mix(col, col2, s2 * 0.55);
 
     // Broad soft gloss on lighter zones (no sharp banding)
     float gloss = smoothstep(0.62, 0.92, f);
-    col = mix(col, vec3(1.0, 0.999, 0.997), gloss * 0.09);
+    col = mix(col, vec3(1.0, 1.0, 1.0), gloss * 0.08);
 
     // Moderate vignette to frame the surface
     vec2 vig = vUv - 0.5;

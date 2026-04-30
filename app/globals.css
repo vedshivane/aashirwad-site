@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 :root {
-  --surface-ground: oklch(0.982 0.008 54);
+  --surface-ground: oklch(0.978 0.002 200);
   --surface-panel: oklch(0.991 0.005 50);
   --surface-panel-strong: oklch(0.948 0.014 48);
   --surface-band: oklch(0.960 0.012 52);
@@ -58,7 +58,6 @@ body::before {
   will-change: transform;
   background:
     radial-gradient(circle at 16% 18%, rgba(255,255,255,0.72) 0, rgba(255,255,255,0.12) 18%, transparent 34%),
-    radial-gradient(circle at 82% 22%, color-mix(in oklab, var(--accent-sandal) 10%, white) 0, transparent 26%),
     linear-gradient(180deg, rgba(255,255,255,0.28), rgba(255,255,255,0) 26%);
   z-index: -2;
   animation: ambient-drift 32s ease-in-out infinite alternate;
@@ -73,15 +72,7 @@ body::after {
   opacity: 0.42;
   background:
     radial-gradient(circle at 20% 18%, rgba(255,255,255,0.7), transparent 24%),
-    radial-gradient(circle at 78% 78%, rgba(255,255,255,0.42), transparent 22%),
-    linear-gradient(115deg, rgba(255,255,255,0.08), transparent 34%, rgba(120,79,55,0.04) 66%, transparent 100%),
-    repeating-linear-gradient(
-      12deg,
-      rgba(95, 63, 46, 0.03) 0,
-      rgba(95, 63, 46, 0.03) 2px,
-      transparent 2px,
-      transparent 26px
-    );
+    radial-gradient(circle at 78% 78%, rgba(255,255,255,0.42), transparent 22%);
   mix-blend-mode: soft-light;
   mask-image: radial-gradient(circle at 50% 50%, black, transparent 92%);
 }
@@ -165,8 +156,7 @@ button:active {
   top: 12rem;
   width: min(42vw, 34rem);
   height: min(42vw, 34rem);
-  background:
-    radial-gradient(circle, color-mix(in oklab, var(--accent-sandal) 28%, white) 0%, transparent 70%);
+  background: transparent;
 }
 
 .site-ambient-stage::after {
@@ -174,8 +164,7 @@ button:active {
   top: 34rem;
   width: min(34vw, 26rem);
   height: min(34vw, 26rem);
-  background:
-    radial-gradient(circle, color-mix(in oklab, var(--accent-clay) 26%, transparent) 0%, transparent 72%);
+  background: transparent;
 }
 
 .site-graphic {
@@ -683,8 +672,6 @@ button:active {
   inset: 0;
   pointer-events: none;
   background:
-    radial-gradient(circle at 74% 28%, color-mix(in oklab, var(--accent-red) 12%, transparent) 0%, transparent 24%),
-    radial-gradient(circle at 24% 10%, color-mix(in oklab, var(--accent-sandal) 20%, transparent) 0%, transparent 22%),
     linear-gradient(110deg, rgba(255,255,255,0.22) 0%, transparent 42%);
   opacity: 0.88;
 }
