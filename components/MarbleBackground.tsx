@@ -100,15 +100,17 @@ const fragmentShader = /* glsl */ `
     // Wide S-curve — maximises visible tonal range without hard edges
     f = smoothstep(0.14, 0.86, f);
 
-    // Three-stop colour ramp — cream white → warm sandal → warm terracotta stone
-    vec3 col0 = vec3(0.998, 0.994, 0.990); // near-white highlight
-    vec3 col1 = vec3(0.942, 0.910, 0.878); // warm sandal mid (~6% darker)
-    vec3 col2 = vec3(0.866, 0.818, 0.768); // warm terracotta stone deep (~13% darker)
+    // Three-stop warm beige ramp — keeps the same warm cream/blush character
+    // as the original palette but spread wider for visible contrast.
+    // All stops keep R >> G >> B so the surface reads as warm beige, not grey.
+    vec3 col0 = vec3(0.998, 0.990, 0.980); // near-white warm ivory
+    vec3 col1 = vec3(0.958, 0.932, 0.902); // warm beige cream (original blush territory)
+    vec3 col2 = vec3(0.904, 0.864, 0.818); // deeper warm sand beige
 
     float s1 = smoothstep(0.0, 0.52, f);
     float s2 = smoothstep(0.38, 1.0, f);
     vec3 col = mix(col0, col1, s1);
-    col = mix(col, col2, s2 * 0.72);
+    col = mix(col, col2, s2 * 0.62);
 
     // Broad soft gloss on lighter zones (no sharp banding)
     float gloss = smoothstep(0.62, 0.92, f);
