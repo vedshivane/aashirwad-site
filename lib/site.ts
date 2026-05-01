@@ -1,3 +1,22 @@
+/**
+ * Background theme selector.
+ *
+ * Set the NEXT_PUBLIC_BG_THEME environment variable (A | B | C) to switch
+ * between the three background treatments at build time.
+ *
+ *   A  – Classic warm cream / white (default, closest to previous look)
+ *   B  – Clean white with subtle diagonal texture and soft radial highlights
+ *   C  – Warm gradient banding using existing surface CSS variables
+ *
+ * Example .env.local:
+ *   NEXT_PUBLIC_BG_THEME=B
+ */
+export type BgTheme = "A" | "B" | "C";
+const rawBgTheme = (process.env.NEXT_PUBLIC_BG_THEME ?? "A").toUpperCase();
+export const bgTheme: BgTheme = (["A", "B", "C"] as const).includes(rawBgTheme as BgTheme)
+  ? (rawBgTheme as BgTheme)
+  : "A";
+
 const rawSiteUrl =
   process.env.NEXT_PUBLIC_SITE_URL ||
   process.env.SITE_URL ||

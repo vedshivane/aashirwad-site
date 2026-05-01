@@ -6,6 +6,9 @@
  * A GPU-accelerated, subtle marble-finish background rendered as a full-viewport
  * WebGL canvas that sits behind all page content.
  *
+ * Rendered only for background theme A (warm cream marble).
+ * Themes B and C use CSS-only backgrounds defined in globals.css.
+ *
  * Features:
  * - Smooth, grain-free surface — no veins, no hard lines
  * - Only the faintest tonal variation (polished Calacatta look)
@@ -19,6 +22,8 @@
 import { useEffect, useRef } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
+
+import type { BgTheme } from "@/lib/site";
 
 // ---------------------------------------------------------------------------
 // GLSL Shaders
@@ -48,6 +53,10 @@ const fragmentShader = /* glsl */ `
   uniform float uTime;
   uniform vec2  uMouse;       // normalised screen coords [-0.5, 0.5]
   uniform vec2  uResolution;  // viewport size in px (for aspect ratio)
+  // Warm cream colour stops (Option A palette)
+  uniform vec3  uCol0;        // lightest — near-white cream
+  uniform vec3  uCol1;        // mid — warm cream
+  uniform vec3  uCol2;        // deep — parchment / light sandstone
 
   varying vec2 vUv;
 
@@ -100,17 +109,10 @@ const fragmentShader = /* glsl */ `
     // Wide S-curve — maximises visible tonal range without hard edges
     f = smoothstep(0.14, 0.86, f);
 
-    // Three-stop cool off-white ramp matching the polished plaster reference.
-    // Palette is near-neutral with just a trace of warmth so it reads as
-    // clean white marble rather than beige or grey.
-    vec3 col0 = vec3(0.992, 0.990, 0.986); // near-pure white
-    vec3 col1 = vec3(0.936, 0.933, 0.924); // soft cool off-white
-    vec3 col2 = vec3(0.880, 0.876, 0.864); // light grey with faint warmth
-
     float s1 = smoothstep(0.0, 0.52, f);
     float s2 = smoothstep(0.38, 1.0, f);
-    vec3 col = mix(col0, col1, s1);
-    col = mix(col, col2, s2 * 0.55);
+    vec3 col = mix(uCol0, uCol1, s1);
+    col = mix(col, uCol2, s2 * 0.55);
 
     // Broad soft gloss on lighter zones (no sharp banding)
     float gloss = smoothstep(0.62, 0.92, f);
@@ -125,10 +127,21 @@ const fragmentShader = /* glsl */ `
 `;
 
 // ---------------------------------------------------------------------------
+// Colour palettes per theme
+// ---------------------------------------------------------------------------
+
+// Option A — warm cream / parchment marble
+const PALETTE_A = {
+  col0: new THREE.Color(0.997, 0.992, 0.982), // near-white with cream tint
+  col1: new THREE.Color(0.960, 0.945, 0.920), // warm cream
+  col2: new THREE.Color(0.920, 0.898, 0.865), // parchment / light sandstone
+};
+
+// ---------------------------------------------------------------------------
 // Shader plane – uses declarative <shaderMaterial> with imperative ref updates
 // ---------------------------------------------------------------------------
 
-function MarblePlane() {
+function MarblePlane({ palette }: { palette: typeof PALETTE_A }) {
   const matRef = useRef<THREE.ShaderMaterial>(null);
   const { size, viewport } = useThree();
 
@@ -175,6 +188,9 @@ function MarblePlane() {
           uTime:       { value: 0 },
           uMouse:      { value: new THREE.Vector2(0, 0) },
           uResolution: { value: new THREE.Vector2(size.width, size.height) },
+          uCol0:       { value: palette.col0 },
+          uCol1:       { value: palette.col1 },
+          uCol2:       { value: palette.col2 },
         }}
         depthWrite={false}
         depthTest={false}
@@ -187,14 +203,32 @@ function MarblePlane() {
 // Public component
 // ---------------------------------------------------------------------------
 
+export interface MarbleBackgroundProps {
+  /**
+   * Background theme — controls which background treatment is rendered.
+   *
+   * A  WebGL warm-cream marble (default)
+   * B  CSS-only; component renders nothing (see globals.css [data-bg="B"])
+   * C  CSS-only; component renders nothing (see globals.css [data-bg="C"])
+   */
+  theme?: BgTheme;
+}
+
 /**
  * MarbleBackground
  *
  * Drop this once in app/layout.tsx (inside <body>, before other children).
- * It renders a fixed, full-viewport WebGL canvas that gives a smooth,
- * line-free polished-marble finish with extremely subtle tonal variation.
+ *
+ * For theme A it renders a fixed, full-viewport WebGL canvas with a smooth,
+ * warm cream marble finish.  For themes B and C it renders nothing — the
+ * background is handled entirely by CSS in globals.css.
  */
-export function MarbleBackground() {
+export function MarbleBackground({ theme = "A" }: MarbleBackgroundProps) {
+  // Themes B and C are CSS-only — no canvas needed.
+  if (theme === "B" || theme === "C") return null;
+
+  const palette = PALETTE_A;
+
   const containerStyle: React.CSSProperties = {
     position: "fixed",
     inset: 0,
@@ -216,7 +250,7 @@ export function MarbleBackground() {
         style={{ width: "100%", height: "100%" }}
         resize={{ scroll: false, debounce: { scroll: 0, resize: 0 } }}
       >
-        <MarblePlane />
+        <MarblePlane palette={palette} />
       </Canvas>
     </div>
   );

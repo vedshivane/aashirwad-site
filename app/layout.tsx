@@ -5,7 +5,7 @@ import Script from "next/script";
 import { MarbleBackground } from "@/components/MarbleBackground";
 import { MotionProvider } from "@/components/motion-provider";
 import { SiteShell } from "@/components/site-shell";
-import { absoluteUrl, siteDescription, siteLocale, siteName, siteUrl } from "@/lib/site";
+import { absoluteUrl, bgTheme, siteDescription, siteLocale, siteName, siteUrl } from "@/lib/site";
 import "./globals.css";
 
 const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID ?? "";
@@ -105,7 +105,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${cabinetGrotesk.variable} ${gambetta.variable}`}>
+    <html lang="en" className={`${cabinetGrotesk.variable} ${gambetta.variable}`} data-bg={bgTheme}>
       <body>
         {GA_MEASUREMENT_ID && (
           <>
@@ -123,7 +123,7 @@ export default function RootLayout({
             </Script>
           </>
         )}
-        <MarbleBackground />
+        <MarbleBackground theme={bgTheme} />
         <MotionProvider>
           <SiteShell>{children}</SiteShell>
         </MotionProvider>

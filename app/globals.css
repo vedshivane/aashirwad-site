@@ -26,6 +26,98 @@
   --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
 }
 
+/* ─────────────────────────────────────────────────────────────────────────────
+   Background theme A — Classic warm cream / white (default)
+   WebGL warm-cream marble canvas + warm CSS variable overrides.
+   Closest to the original site look; replaces the cool grey cast.
+───────────────────────────────────────────────────────────────────────────── */
+html[data-bg="A"] {
+  --surface-ground:       oklch(0.992 0.010 68);
+  --surface-panel:        oklch(0.995 0.007 58);
+  --surface-panel-strong: oklch(0.956 0.018 54);
+  --surface-band:         oklch(0.975 0.018 62);
+  --surface-depth:        oklch(0.955 0.022 54);
+  --surface-warm:         oklch(0.978 0.020 66);
+  --surface-cream:        oklch(0.998 0.005 65);
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   Background theme B — Clean white with subtle texture + radial highlights
+   CSS-only; no WebGL canvas. Bright white base with barely-visible diagonal
+   micro-lines and soft warm glows at the screen corners.
+───────────────────────────────────────────────────────────────────────────── */
+html[data-bg="B"] {
+  --surface-ground:       oklch(0.999 0.003 62);
+  --surface-panel:        oklch(0.997 0.005 58);
+  --surface-panel-strong: oklch(0.960 0.016 54);
+  --surface-band:         oklch(0.984 0.012 60);
+  --surface-depth:        oklch(0.970 0.016 54);
+  --surface-warm:         oklch(0.980 0.018 65);
+  --surface-cream:        oklch(0.999 0.003 64);
+  background: #fffefb;
+}
+
+/* Suppress body's animated WebGL overlay pseudo-elements for pure CSS themes */
+html[data-bg="B"] body::before,
+html[data-bg="B"] body::after {
+  display: none;
+}
+
+html[data-bg="B"] body {
+  background:
+    /* Soft warm radial glow — top-left corner */
+    radial-gradient(ellipse 68% 52% at 12% 10%, oklch(0.97 0.038 72 / 0.32), transparent),
+    /* Soft warm radial glow — bottom-right corner */
+    radial-gradient(ellipse 60% 46% at 88% 90%, oklch(0.96 0.030 58 / 0.22), transparent),
+    /* Central very faint warmth */
+    radial-gradient(ellipse 50% 38% at 50% 48%, oklch(0.98 0.018 65 / 0.14), transparent),
+    /* Subtle diagonal micro-texture */
+    repeating-linear-gradient(
+      -45deg,
+      transparent 0px,
+      transparent 14px,
+      oklch(0.55 0.06 40 / 0.028) 14px,
+      oklch(0.55 0.06 40 / 0.028) 15px
+    ),
+    /* Pure warm-white base */
+    #fffefb;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   Background theme C — Warm gradient banding
+   CSS-only; no WebGL canvas. Gentle warm bands using existing surface CSS
+   variables — no grey cast, no flat single colour.
+───────────────────────────────────────────────────────────────────────────── */
+html[data-bg="C"] {
+  --surface-ground:       oklch(0.988 0.014 58);
+  --surface-panel:        oklch(0.994 0.010 56);
+  --surface-panel-strong: oklch(0.952 0.020 52);
+  --surface-band:         oklch(0.968 0.022 54);
+  --surface-depth:        oklch(0.948 0.026 48);
+  --surface-warm:         oklch(0.974 0.022 64);
+  --surface-cream:        oklch(0.996 0.007 64);
+}
+
+html[data-bg="C"] body::before,
+html[data-bg="C"] body::after {
+  display: none;
+}
+
+html[data-bg="C"] body {
+  background:
+    /* Warm top highlight */
+    radial-gradient(ellipse 80% 32% at 50% 0%, rgba(255, 248, 235, 0.78), transparent 52%),
+    /* Warm banding across the full scroll height */
+    repeating-linear-gradient(
+      180deg,
+      color-mix(in oklab, var(--surface-panel)  84%, white) 0rem,
+      color-mix(in oklab, var(--surface-band)   72%, white) 20rem,
+      color-mix(in oklab, var(--surface-warm)   64%, white) 40rem,
+      color-mix(in oklab, var(--surface-depth)  56%, white) 58rem,
+      color-mix(in oklab, var(--surface-band)   70%, white) 78rem
+    );
+}
+
 @theme inline {
   --font-sans: var(--font-cabinet-grotesk);
   --font-display: var(--font-gambetta);
