@@ -43,7 +43,7 @@ html {
 
 body {
   min-height: 100dvh;
-  background: transparent;
+  background: oklch(0.994 0.006 58);
   color: var(--ink-primary);
   font-family: var(--font-cabinet-grotesk), sans-serif;
   text-rendering: optimizeLegibility;
