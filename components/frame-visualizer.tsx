@@ -140,15 +140,15 @@ export function FrameVisualizer() {
 
   return (
     <div className="surface-panel mt-12 mb-4 overflow-hidden">
-      <div className="flex flex-col items-stretch justify-between gap-12 p-4 lg:flex-row lg:items-stretch lg:p-8">
-        <div className="relative flex min-h-[440px] w-full flex-1 flex-col items-center justify-center overflow-hidden rounded-2xl border border-[var(--line-soft)] bg-slate-50/70 p-6 shadow-inner lg:min-h-[680px] lg:self-stretch">
-          <div className="absolute left-8 top-6 z-20 opacity-70">
-            <h4 className="mb-2 font-display text-[2rem] leading-none tracking-tight text-[var(--ink-strong)] md:text-[2.6rem]">
+      <div className="flex flex-col items-stretch justify-between gap-8 p-3 sm:gap-10 sm:p-5 lg:flex-row lg:items-stretch lg:p-8">
+        <div className="relative flex min-h-[320px] w-full flex-1 flex-col items-center justify-center overflow-hidden rounded-2xl border border-[var(--line-soft)] bg-slate-50/70 p-6 shadow-inner sm:min-h-[420px] lg:min-h-[680px] lg:self-stretch">
+          <div className="absolute left-5 top-5 z-20 opacity-70 sm:left-8 sm:top-6">
+            <h4 className="mb-1 font-display text-[1.5rem] leading-none tracking-tight text-[var(--ink-strong)] sm:mb-2 sm:text-[2rem] md:text-[2.6rem]">
               Cross Section
               <br />
               Profile
             </h4>
-            <p className="text-[0.8rem] font-semibold uppercase tracking-[0.2em] text-[var(--ink-subtle)] md:text-[0.85rem]">
+            <p className="text-[0.72rem] font-semibold uppercase tracking-[0.2em] text-[var(--ink-subtle)] sm:text-[0.8rem] md:text-[0.85rem]">
               {activeRange.name} · {activeProfile.name}
             </p>
           </div>
@@ -165,7 +165,7 @@ export function FrameVisualizer() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.24, ease: "easeOut" }}
-              className="flex h-full w-full items-center justify-center pt-20 pb-10 md:pt-24 md:pb-12"
+              className="flex h-full w-full items-center justify-center pb-14 pt-16 sm:pb-16 sm:pt-20 md:pb-16 md:pt-24"
             >
               {activeProfile.name === "Square" ? (
                 <CrossSection3DSquare
@@ -184,13 +184,35 @@ export function FrameVisualizer() {
               )}
             </motion.div>
           </AnimatePresence>
+
+          {/* Size selector overlaid at the bottom of the preview */}
+          <div className="absolute bottom-3 left-3 right-3 z-30 flex items-center justify-between gap-2 rounded-xl border border-[var(--line-soft)] bg-white/80 px-3 py-2 backdrop-blur-sm sm:bottom-4 sm:left-4 sm:right-4">
+            <span className="shrink-0 text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-[var(--ink-subtle)]">
+              Size
+            </span>
+            <div className="flex flex-wrap justify-end gap-1.5">
+              {activeFinish.sizes.map((size, index) => (
+                <button
+                  key={size}
+                  onClick={() => setSizeIndex(index)}
+                  className={`rounded-lg border px-3 py-1.5 text-xs font-bold transition-all active:scale-95 ${
+                    sizeIndex === index
+                      ? "border-[var(--accent-red)] bg-[var(--accent-red)] text-white shadow-sm"
+                      : "border-[var(--line-soft)] bg-white text-[var(--ink-muted)] hover:border-[var(--ink-subtle)]"
+                  }`}
+                >
+                  {size}
+                </button>
+              ))}
+            </div>
+          </div>
         </div>
 
         <div className="w-full shrink-0 lg:w-[420px] xl:w-[460px]">
-          <h3 className="mb-3 font-display text-[1.8rem] tracking-tight text-[var(--ink-strong)] xl:text-[2.2rem]">
+          <h3 className="mb-2 font-display text-[1.6rem] tracking-tight text-[var(--ink-strong)] sm:mb-3 sm:text-[1.8rem] xl:text-[2.2rem]">
             Frame Configuration
           </h3>
-          <p className="mb-8 text-[1rem] leading-7 text-[var(--ink-muted)]">
+          <p className="mb-6 hidden text-[1rem] leading-7 text-[var(--ink-muted)] sm:mb-8 sm:block">
             Graphic cross-sections now follow the current handwritten frame sheet, including
             range-specific sizes and finishes.
           </p>
@@ -318,7 +340,7 @@ export function FrameVisualizer() {
                     onClick={() => setSizeIndex(index)}
                     role="radio"
                     aria-checked={sizeIndex === index}
-                    className={`rounded-lg border px-4 py-2.5 text-sm font-bold transition-all ${
+                    className={`rounded-lg border px-4 py-3 text-sm font-bold transition-all active:scale-95 ${
                       sizeIndex === index
                         ? "border-[var(--accent-red)] bg-[var(--accent-red)] text-white shadow-sm"
                         : "border-[var(--line-soft)] bg-white text-[var(--ink-muted)] hover:border-[var(--ink-subtle)]"
@@ -330,7 +352,7 @@ export function FrameVisualizer() {
               </div>
             </section>
 
-            <section className="rounded-2xl border border-[var(--line-soft)] bg-[var(--surface-ground)] p-5">
+            <section className="hidden rounded-2xl border border-[var(--line-soft)] bg-[var(--surface-ground)] p-5 sm:block">
               <h4 className="text-[0.8rem] font-semibold uppercase tracking-[0.2em] text-[var(--ink-subtle)]">
                 Standard Frame Lengths
               </h4>
@@ -453,8 +475,8 @@ function CrossSection3DSquare({
         depthLabel={depthText}
         widthStart={x0}
         widthEnd={widthEnd}
-        depthTop={shoulderY - depthOffset}
-        depthBottom={shoulderY}
+        depthTop={yTop}
+        depthBottom={175}
         depthLineX={farRightX + 10}
         widthTextX={(x0 + widthEnd) / 2}
         depthTextX={farRightX + 20}
@@ -487,8 +509,7 @@ function CrossSection3DMoulding({
   const widthEnd = x0 + frontWidth;
   const depthFaceX = x0 + upperWidth;
   const farRightX = widthEnd + depthOffset;
-  const curveInset = 18 * widthScale;
-  const curveDrop = 14;
+  const concaveR = 14;
   const notchWidth = 14 * widthScale;
   const notchDepth = 12;
   const notchGap = 28 * widthScale;
@@ -507,10 +528,10 @@ function CrossSection3DMoulding({
     `L ${secondNotchX + notchWidth} 175`,
     `L ${widthEnd} 175`,
     `L ${widthEnd} ${shoulderY}`,
-    `L ${depthFaceX} ${shoulderY}`,
+    `L ${depthFaceX + concaveR} ${shoulderY}`,
+    `A ${concaveR} ${concaveR} 0 0 0 ${depthFaceX} ${shoulderY - concaveR}`,
     `L ${depthFaceX} ${yTop}`,
-    `L ${x0 + curveInset} ${yTop}`,
-    `Q ${x0} ${yTop} ${x0} ${yTop + curveDrop}`,
+    `L ${x0} ${yTop}`,
     "Z",
   ].join(" ");
   const frontShadeId = `md-front-${hex.replace("#", "")}`;
@@ -538,21 +559,21 @@ function CrossSection3DMoulding({
       </defs>
 
       <g>
-        <path d={`M${x0 + curveInset} ${yTop} L${depthFaceX} ${yTop} L${widthEnd} ${topY} L${x0 + depthOffset + curveInset} ${topY} Z`} fill={outer} />
+        <path d={`M${x0} ${yTop} L${depthFaceX} ${yTop} L${widthEnd} ${topY} L${x0 + depthOffset} ${topY} Z`} fill={outer} />
         <path d={`M${depthFaceX} ${shoulderY} L${widthEnd} ${shoulderY} L${farRightX} ${shoulderY - depthOffset} L${widthEnd} ${shoulderY - depthOffset} Z`} fill={outer} />
-        <path d={`M${x0 + curveInset} ${yTop} L${depthFaceX} ${yTop} L${widthEnd} ${topY} L${x0 + depthOffset + curveInset} ${topY} Z`} fill={`url(#${topShadeId})`} />
+        <path d={`M${x0} ${yTop} L${depthFaceX} ${yTop} L${widthEnd} ${topY} L${x0 + depthOffset} ${topY} Z`} fill={`url(#${topShadeId})`} />
         <path d={`M${depthFaceX} ${shoulderY} L${widthEnd} ${shoulderY} L${farRightX} ${shoulderY - depthOffset} L${widthEnd} ${shoulderY - depthOffset} Z`} fill={`url(#${topShadeId})`} />
 
-        <path d={`M${depthFaceX} ${yTop} L${depthFaceX} ${shoulderY} L${widthEnd} ${shoulderY - depthOffset} L${widthEnd} ${topY} Z`} fill={side} />
+        <path d={`M${depthFaceX} ${yTop} L${depthFaceX} ${shoulderY - concaveR} A${concaveR} ${concaveR} 0 0 1 ${depthFaceX + concaveR} ${shoulderY} L${widthEnd} ${shoulderY - depthOffset} L${widthEnd} ${topY} Z`} fill={side} />
         <path d={`M${widthEnd} ${shoulderY} L${widthEnd} 175 L${farRightX} 115 L${farRightX} ${shoulderY - depthOffset} Z`} fill={side} />
-        <path d={`M${depthFaceX} ${yTop} L${depthFaceX} ${shoulderY} L${widthEnd} ${shoulderY - depthOffset} L${widthEnd} ${topY} Z`} fill={`url(#${sideShadeId})`} />
+        <path d={`M${depthFaceX} ${yTop} L${depthFaceX} ${shoulderY - concaveR} A${concaveR} ${concaveR} 0 0 1 ${depthFaceX + concaveR} ${shoulderY} L${widthEnd} ${shoulderY - depthOffset} L${widthEnd} ${topY} Z`} fill={`url(#${sideShadeId})`} />
         <path d={`M${widthEnd} ${shoulderY} L${widthEnd} 175 L${farRightX} 115 L${farRightX} ${shoulderY - depthOffset} Z`} fill={`url(#${sideShadeId})`} />
 
         <path d={frontPath} fill={hex} />
         <path d={frontPath} fill={`url(#${frontShadeId})`} />
 
         <path
-          d={`M${x0 + curveInset} ${yTop} L${depthFaceX} ${yTop} L${depthFaceX} ${shoulderY} L${widthEnd} ${shoulderY} L${widthEnd} 175`}
+          d={`M${x0} ${yTop} L${depthFaceX} ${yTop} L${depthFaceX} ${shoulderY - concaveR} A${concaveR} ${concaveR} 0 0 1 ${depthFaceX + concaveR} ${shoulderY} L${widthEnd} ${shoulderY} L${widthEnd} 175`}
           fill="none"
           stroke="rgba(255,255,255,0.18)"
           strokeWidth="1"
@@ -573,8 +594,8 @@ function CrossSection3DMoulding({
         depthLabel={depthText}
         widthStart={x0}
         widthEnd={widthEnd}
-        depthTop={shoulderY - depthOffset}
-        depthBottom={shoulderY}
+        depthTop={yTop}
+        depthBottom={175}
         depthLineX={farRightX + 10}
         widthTextX={(x0 + widthEnd) / 2}
         depthTextX={farRightX + 18}
@@ -658,6 +679,7 @@ function DimensionGuides({
   widthTextX: number;
   depthTextX: number;
 }) {
+  const depthTextY = (depthTop + depthBottom) / 2;
   return (
     <g
       className="text-[var(--ink-subtle)] opacity-60"
@@ -677,7 +699,7 @@ function DimensionGuides({
         />
         <path d={`M${depthLineX} ${depthTop + 5} V${depthBottom - 5}`} strokeDasharray="2 2" />
       </g>
-      <text x={depthTextX} y="85" textAnchor="start" fill="currentColor" dy="4">
+      <text x={depthTextX} y={depthTextY} textAnchor="start" fill="currentColor" dy="4">
         {`${depthLabel}"`}
       </text>
     </g>
