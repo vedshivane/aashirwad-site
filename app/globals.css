@@ -43,7 +43,13 @@ html {
 
 body {
   min-height: 100dvh;
-  background: oklch(0.994 0.006 58);
+  background-color: oklch(0.990 0.007 56);
+  background-image:
+    radial-gradient(ellipse 120% 60% at 15% 10%, rgba(255, 246, 235, 0.85) 0%, transparent 50%),
+    radial-gradient(ellipse 70% 80% at 82% 25%, rgba(255, 240, 222, 0.55) 0%, transparent 45%),
+    radial-gradient(ellipse 90% 50% at 55% 88%, rgba(245, 233, 215, 0.48) 0%, transparent 50%),
+    repeating-linear-gradient(108deg, transparent 0%, rgba(255, 248, 238, 0.18) 0.8%, transparent 1.6%),
+    repeating-linear-gradient(162deg, transparent 0%, rgba(240, 228, 210, 0.12) 1.1%, transparent 2.2%);
   color: var(--ink-primary);
   font-family: var(--font-cabinet-grotesk), sans-serif;
   text-rendering: optimizeLegibility;
