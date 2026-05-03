@@ -489,6 +489,8 @@ function CrossSection3DMoulding({
   const farRightX = widthEnd + depthOffset;
   const curveInset = 18 * widthScale;
   const curveDrop = 14;
+  const stepInset = 12 * widthScale;
+  const stepDrop = 12;
   const notchWidth = 14 * widthScale;
   const notchDepth = 12;
   const notchGap = 28 * widthScale;
@@ -509,8 +511,10 @@ function CrossSection3DMoulding({
     `L ${widthEnd} ${shoulderY}`,
     `L ${depthFaceX} ${shoulderY}`,
     `L ${depthFaceX} ${yTop}`,
-    `L ${x0 + curveInset} ${yTop}`,
-    `Q ${x0} ${yTop} ${x0} ${yTop + curveDrop}`,
+    `L ${x0 + curveInset + stepInset} ${yTop}`,
+    `L ${x0 + curveInset + stepInset} ${yTop + stepDrop}`,
+    `L ${x0 + curveInset} ${yTop + stepDrop}`,
+    `Q ${x0} ${yTop + stepDrop} ${x0} ${yTop + stepDrop + curveDrop}`,
     "Z",
   ].join(" ");
   const frontShadeId = `md-front-${hex.replace("#", "")}`;
@@ -538,21 +542,28 @@ function CrossSection3DMoulding({
       </defs>
 
       <g>
-        <path d={`M${x0 + curveInset} ${yTop} L${depthFaceX} ${yTop} L${widthEnd} ${topY} L${x0 + depthOffset + curveInset} ${topY} Z`} fill={outer} />
+        {/* Main top face: from step edge to shoulder */}
+        <path d={`M${x0 + curveInset + stepInset} ${yTop} L${depthFaceX} ${yTop} L${widthEnd} ${topY} L${x0 + depthOffset + curveInset + stepInset} ${topY} Z`} fill={outer} />
+        {/* Step top face (ledge of the inset) */}
+        <path d={`M${x0 + curveInset} ${yTop + stepDrop} L${x0 + curveInset + stepInset} ${yTop + stepDrop} L${x0 + depthOffset + curveInset + stepInset} ${topY + stepDrop} L${x0 + depthOffset + curveInset} ${topY + stepDrop} Z`} fill={outer} />
         <path d={`M${depthFaceX} ${shoulderY} L${widthEnd} ${shoulderY} L${farRightX} ${shoulderY - depthOffset} L${widthEnd} ${shoulderY - depthOffset} Z`} fill={outer} />
-        <path d={`M${x0 + curveInset} ${yTop} L${depthFaceX} ${yTop} L${widthEnd} ${topY} L${x0 + depthOffset + curveInset} ${topY} Z`} fill={`url(#${topShadeId})`} />
+        <path d={`M${x0 + curveInset + stepInset} ${yTop} L${depthFaceX} ${yTop} L${widthEnd} ${topY} L${x0 + depthOffset + curveInset + stepInset} ${topY} Z`} fill={`url(#${topShadeId})`} />
+        <path d={`M${x0 + curveInset} ${yTop + stepDrop} L${x0 + curveInset + stepInset} ${yTop + stepDrop} L${x0 + depthOffset + curveInset + stepInset} ${topY + stepDrop} L${x0 + depthOffset + curveInset} ${topY + stepDrop} Z`} fill={`url(#${topShadeId})`} />
         <path d={`M${depthFaceX} ${shoulderY} L${widthEnd} ${shoulderY} L${farRightX} ${shoulderY - depthOffset} L${widthEnd} ${shoulderY - depthOffset} Z`} fill={`url(#${topShadeId})`} />
 
         <path d={`M${depthFaceX} ${yTop} L${depthFaceX} ${shoulderY} L${widthEnd} ${shoulderY - depthOffset} L${widthEnd} ${topY} Z`} fill={side} />
         <path d={`M${widthEnd} ${shoulderY} L${widthEnd} 175 L${farRightX} 115 L${farRightX} ${shoulderY - depthOffset} Z`} fill={side} />
+        {/* Step riser side face (depth face at the step transition) */}
+        <path d={`M${x0 + curveInset + stepInset} ${yTop} L${x0 + depthOffset + curveInset + stepInset} ${topY} L${x0 + depthOffset + curveInset + stepInset} ${topY + stepDrop} L${x0 + curveInset + stepInset} ${yTop + stepDrop} Z`} fill={side} />
         <path d={`M${depthFaceX} ${yTop} L${depthFaceX} ${shoulderY} L${widthEnd} ${shoulderY - depthOffset} L${widthEnd} ${topY} Z`} fill={`url(#${sideShadeId})`} />
         <path d={`M${widthEnd} ${shoulderY} L${widthEnd} 175 L${farRightX} 115 L${farRightX} ${shoulderY - depthOffset} Z`} fill={`url(#${sideShadeId})`} />
+        <path d={`M${x0 + curveInset + stepInset} ${yTop} L${x0 + depthOffset + curveInset + stepInset} ${topY} L${x0 + depthOffset + curveInset + stepInset} ${topY + stepDrop} L${x0 + curveInset + stepInset} ${yTop + stepDrop} Z`} fill={`url(#${sideShadeId})`} />
 
         <path d={frontPath} fill={hex} />
         <path d={frontPath} fill={`url(#${frontShadeId})`} />
 
         <path
-          d={`M${x0 + curveInset} ${yTop} L${depthFaceX} ${yTop} L${depthFaceX} ${shoulderY} L${widthEnd} ${shoulderY} L${widthEnd} 175`}
+          d={`M${x0 + curveInset} ${yTop + stepDrop} L${x0 + curveInset + stepInset} ${yTop + stepDrop} L${x0 + curveInset + stepInset} ${yTop} L${depthFaceX} ${yTop} L${depthFaceX} ${shoulderY} L${widthEnd} ${shoulderY} L${widthEnd} 175`}
           fill="none"
           stroke="rgba(255,255,255,0.18)"
           strokeWidth="1"
@@ -573,8 +584,8 @@ function CrossSection3DMoulding({
         depthLabel={depthText}
         widthStart={x0}
         widthEnd={widthEnd}
-        depthTop={shoulderY - depthOffset}
-        depthBottom={shoulderY}
+        depthTop={topY}
+        depthBottom={175}
         depthLineX={farRightX + 10}
         widthTextX={(x0 + widthEnd) / 2}
         depthTextX={farRightX + 18}
